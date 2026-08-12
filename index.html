@@ -555,11 +555,10 @@
             color: white;
         }
 
-        /* --- Flex Layouts replacing Grids --- */
-        /* Replaces .grid-2x2 */
+        /* --- Layout vertical pour toutes les catégories (Effectif & Championnat) --- */
         .grid-2x2 {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 25px;
             margin-top: 25px;
         }
@@ -570,9 +569,9 @@
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            flex: 1 1 calc(50% - 25px);
-            /* Flex layout */
-            min-width: 300px;
+            flex: 1 1 100%;
+            width: 100%;
+            min-width: 0;
             transition: var(--transition);
         }
 
