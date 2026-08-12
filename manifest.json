@@ -1,0 +1,17 @@
+{
+  "name": "Gestion Section Sportive Basket",
+  "short_name": "Section Basket",
+  "description": "Application de Gestion Section Sportive Basket",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F4F1EA",
+  "theme_color": "#5E35B1",
+  "icons": [
+    {
+      "src": "logo/icone.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
