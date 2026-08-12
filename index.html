@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Section Sportive Basket</title>
-    <link rel="icon" type="image/png" href="logo/icone.png">
-    <link rel="shortcut icon" type="image/png" href="logo/icone.png">
-    <link rel="apple-touch-icon" href="logo/icone.png">
+    <link rel="icon" type="image/png" href="logo/logoss2.png">
+    <link rel="shortcut icon" type="image/png" href="logo/logoss2.png">
+    <link rel="apple-touch-icon" href="logo/logoss2.png">
     <link rel="manifest" href="manifest.json">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
@@ -91,7 +91,7 @@
 
         /* --- Navbar (Sidebar) --- */
         .sidebar {
-            width: 250px;
+            width: 280px;
             height: 100vh;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -205,6 +205,73 @@
             display: none;
         }
 
+        /* --- Sidebar Footer (Sauvegarder / Charger) --- */
+        .sidebar-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        body:not(.home-mode) .sidebar-footer {
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-sidebar-action {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: inherit;
+            text-decoration: none;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body:not(.home-mode) .btn-sidebar-action {
+            border-color: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+        }
+
+        .btn-sidebar-action:hover {
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-sidebar-action i {
+            font-size: 1.1rem;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .btn-sidebar-action span {
+            white-space: nowrap;
+        }
+
+        .sidebar.collapsed .sidebar-footer .btn-sidebar-action span {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-footer .btn-sidebar-action {
+            justify-content: center;
+            padding: 12px 5px;
+        }
+
         /* --- Main Content --- */
         .main-content {
             flex: 1;
@@ -280,23 +347,79 @@
             }
 
             .grid-2x2 {
-                gap: 15px;
+                gap: 20px;
+                flex-direction: column;
             }
 
             .category-card {
-                flex: 1 1 calc(50% - 15px);
-                min-width: 280px;
+                flex: 1 1 100%;
+                width: 100%;
+                min-width: 0;
                 padding: 20px;
             }
 
             .header-section h1 {
                 font-size: 1.8rem;
             }
+
+            .accueil-title {
+                font-size: 1.8rem;
+                padding: 0 70px;
+            }
+
+            .top-right-logo {
+                height: 80px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .sidebar-footer {
+                flex-direction: row;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+                gap: 5px;
+                flex: 1;
+                justify-content: space-around;
+            }
+
+            .btn-sidebar-action {
+                flex-direction: column;
+                padding: 6px 4px;
+                font-size: 0.65rem;
+                gap: 4px;
+                border: none;
+                background: transparent !important;
+                justify-content: center;
+                width: auto;
+            }
+
+            .btn-sidebar-action i {
+                font-size: 1.2rem;
+                min-width: auto;
+            }
+
+            .sidebar.collapsed .sidebar-footer .btn-sidebar-action span,
+            .btn-sidebar-action span {
+                display: block;
+                font-size: 0.65rem;
+            }
         }
 
         @media (max-width: 600px) {
             .category-card {
                 flex: 1 1 100%;
+            }
+
+            .accueil-title {
+                font-size: 1.4rem;
+                padding: 0;
+            }
+
+            .top-right-logo {
+                height: 65px;
+                position: static;
+                margin-bottom: 15px;
             }
 
             .header-section {
@@ -564,6 +687,15 @@
             min-height: 75vh;
         }
 
+        .accueil-title {
+            font-size: 2.4rem;
+            text-align: center;
+            margin: 0;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+        }
+
         .huge-center-logo {
             max-width: 80%;
             max-height: 55vh;
@@ -575,7 +707,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            height: 135px;
+            height: 110px;
             z-index: 10;
         }
 
@@ -952,6 +1084,16 @@
             <li><a href="#" onclick="navigate('championnat')" id="nav-championnat"><i class="fas fa-trophy"></i>
                     <span>Championnat</span></a></li>
         </ul>
+        <div class="sidebar-footer">
+            <button class="btn-sidebar-action btn-save" onclick="exportAppData()" title="Sauvegarder les données">
+                <i class="fas fa-download"></i> <span>Sauvegarder</span>
+            </button>
+            <label class="btn-sidebar-action btn-load" title="Charger des données">
+                <i class="fas fa-upload"></i> <span>Charger</span>
+                <input type="file" accept=".json" id="import-json-file" style="display: none;"
+                    onchange="importAppData(event)">
+            </label>
+        </div>
     </nav>
 
     <main class="main-content home-mode">
@@ -961,7 +1103,7 @@
                 <img src="logo/logoss2.png" class="top-right-logo" alt="Logo Léonard de Vinci">
                 <div class="header-section"
                     style="border-bottom: none; justify-content: center; margin-bottom: 20px; padding-bottom: 0;">
-                    <h1 style="font-size: 3.5rem;">Gestion Section Sportive</h1>
+                    <h1 class="accueil-title">Gestion Section Sportive</h1>
                 </div>
                 <img src="logo/logossnoir.PNG" class="huge-center-logo" alt="Logo Section Sportive">
             </div>
@@ -1143,10 +1285,81 @@
 
         <section id="championnat" class="page-section">
             <div class="header-section">
-                <h1>Championnat</h1>
-                <button class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau Match</button>
+                <h1>Championnat & Rencontres</h1>
+                <button class="btn btn-primary" onclick="openMatchModal()"><i class="fas fa-plus"></i> Nouveau
+                    Match</button>
             </div>
-            <p>Espace de gestion des poules et du calendrier des rencontres.</p>
+
+            <div class="grid-2x2">
+                <div class="category-card">
+                    <h3>U13 Filles</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Adversaire</th>
+                                    <th>Lieu</th>
+                                    <th>Score / Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-matches-U13F"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U13 Garçons</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Adversaire</th>
+                                    <th>Lieu</th>
+                                    <th>Score / Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-matches-U13G"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U15 Filles</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Adversaire</th>
+                                    <th>Lieu</th>
+                                    <th>Score / Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-matches-U15F"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U15 Garçons</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Adversaire</th>
+                                    <th>Lieu</th>
+                                    <th>Score / Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-matches-U15G"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -1627,6 +1840,147 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL MATCH (Création / Edition) -->
+    <div class="modal-overlay" id="modalMatch">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modalMatch')"><i class="fas fa-times"></i></button>
+            <h2 id="modalMatchTitle" style="margin-bottom: 20px;">Nouveau Match</h2>
+
+            <div class="form-group">
+                <label>Catégorie *</label>
+                <select id="m-cat" class="form-control">
+                    <option value="U13F">U13 Filles</option>
+                    <option value="U13G">U13 Garçons</option>
+                    <option value="U15F">U15 Filles</option>
+                    <option value="U15G">U15 Garçons</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Adversaire (Collège / Club) *</label>
+                <input type="text" id="m-adversaire" class="form-control" placeholder="ex: Collège Jean Moulin">
+            </div>
+
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label>Date du match</label>
+                    <input type="date" id="m-date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Lieu</label>
+                    <select id="m-lieu" class="form-control">
+                        <option value="Domicile">Domicile</option>
+                        <option value="Extérieur">Extérieur</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Statut du match</label>
+                <select id="m-statut" class="form-control" onchange="toggleScoreInputs()">
+                    <option value="A venir">À venir</option>
+                    <option value="Terminé">Terminé</option>
+                </select>
+            </div>
+
+            <div class="grid-inputs" id="m-scores-container" style="display: none;">
+                <div class="form-group">
+                    <label>Score Section</label>
+                    <input type="number" id="m-score-nous" class="form-control" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Score Adversaire</label>
+                    <input type="number" id="m-score-eux" class="form-control" value="0" min="0">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('modalMatch')">Annuler</button>
+                <button class="btn btn-primary" id="btnSaveMatch" onclick="saveMatch()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL STATS MATCH (Saisie des points des joueurs) -->
+    <div class="modal-overlay" id="modalStatsMatch">
+        <div class="modal-content large">
+            <button class="close-modal" onclick="closeModal('modalStatsMatch')"><i class="fas fa-times"></i></button>
+            <h2 id="modalStatsMatchTitle" style="margin-bottom: 5px;">Statistiques des Joueurs</h2>
+            <p id="modalStatsMatchSubtitle" style="color: var(--text-muted); margin-bottom: 20px; font-weight: 500;">
+            </p>
+
+            <div id="stats-players-container"
+                style="display: flex; flex-direction: column; gap: 12px; max-height: 60vh; overflow-y: auto; padding-right: 5px;">
+                <!-- Rempli dynamiquement en JS -->
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('modalStatsMatch')">Annuler</button>
+                <button class="btn btn-primary" onclick="saveMatchPlayerStats()"><i class="fas fa-check"></i>
+                    Enregistrer les stats</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONSULT PLAYER STATS (Historique des stats d'un joueur) -->
+    <div class="modal-overlay" id="modalConsultPlayerStats">
+        <div class="modal-content large">
+            <button class="close-modal" onclick="closeModal('modalConsultPlayerStats')"><i
+                    class="fas fa-times"></i></button>
+            <h2 id="playerStatsTitle" style="margin-bottom: 5px;">Statistiques Joueur</h2>
+            <p id="playerStatsSubtitle" style="color: var(--text-muted); margin-bottom: 20px; font-weight: 500;"></p>
+
+            <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div
+                    style="flex: 1; background: rgba(94, 53, 177, 0.08); padding: 15px; border-radius: var(--border-radius-sm); text-align: center;">
+                    <span
+                        style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Matchs
+                        Joués</span>
+                    <h3 id="stat-matchs-joues"
+                        style="font-size: 1.8rem; color: var(--primary-purple); margin-top: 5px; font-weight: 800;">0
+                    </h3>
+                </div>
+                <div
+                    style="flex: 1; background: rgba(94, 53, 177, 0.08); padding: 15px; border-radius: var(--border-radius-sm); text-align: center;">
+                    <span
+                        style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Total
+                        Points</span>
+                    <h3 id="stat-total-points"
+                        style="font-size: 1.8rem; color: var(--primary-purple); margin-top: 5px; font-weight: 800;">0
+                    </h3>
+                </div>
+                <div
+                    style="flex: 1; background: rgba(94, 53, 177, 0.08); padding: 15px; border-radius: var(--border-radius-sm); text-align: center;">
+                    <span
+                        style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Moyenne
+                        (PPM)</span>
+                    <h3 id="stat-moyenne-ppm"
+                        style="font-size: 1.8rem; color: var(--primary-purple); margin-top: 5px; font-weight: 800;">0
+                    </h3>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Adversaire</th>
+                            <th>Lieu</th>
+                            <th>Score Match</th>
+                            <th>Points Marqués</th>
+                        </tr>
+                    </thead>
+                    <tbody id="player-stats-history-tbody"></tbody>
+                </table>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeModal('modalConsultPlayerStats')">Fermer</button>
+            </div>
+        </div>
+    </div>
     <script>
         // Fonction pour gérer la navigation
         function navigate(pageId) {
@@ -1683,6 +2037,7 @@
             refreshMaterielTable();
             refreshPreCommandesTable();
             renderFournisseurOrders();
+            refreshMatchesTable();
         });
 
         // Gestion du Matériel
@@ -2037,6 +2392,7 @@
                 <td style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
                     <button class="btn btn-mod-profil">Modifier profil</button>
                     <button class="btn btn-primary btn-fiche-visuelle" style="font-weight: bold;"><i class="fas fa-id-card"></i> Fiche joueur</button>
+                    <button class="btn btn-secondary btn-stats-joueur" style="font-weight: bold; background: var(--primary-light); border-color: var(--primary-light); color: white;"><i class="fas fa-chart-bar"></i> Stats matchs</button>
                     <button class="btn btn-secondary btn-supprimer" title="Supprimer"><i class="fas fa-trash"></i></button>
                 </td>
             `;
@@ -2045,6 +2401,7 @@
 
             const modProfilBtn = tr.querySelector('.btn-mod-profil');
             const ficheVisuelleBtn = tr.querySelector('.btn-fiche-visuelle');
+            const statsJoueurBtn = tr.querySelector('.btn-stats-joueur');
             const deleteBtn = tr.querySelector('.btn-supprimer');
 
             modProfilBtn.onclick = function () {
@@ -2078,6 +2435,10 @@
 
             ficheVisuelleBtn.onclick = function () {
                 openVisualCard(player);
+            };
+
+            statsJoueurBtn.onclick = function () {
+                openPlayerStatsHistory(player);
             };
 
             deleteBtn.onclick = function () {
@@ -2233,6 +2594,317 @@
             }
 
             openModal('modalCarteJoueur');
+        }
+
+        // --- Gestion des Matchs et du Championnat ---
+        let savedMatches = JSON.parse(localStorage.getItem('sectionSportiveMatches')) || [];
+        let editingMatchIndex = null;
+        let currentMatchForStats = null;
+
+        function refreshMatchesTable() {
+            ['U13F', 'U13G', 'U15F', 'U15G'].forEach(cat => {
+                const tbody = document.getElementById('table-matches-' + cat);
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                const catMatches = savedMatches.filter(m => m.cat === cat);
+                if (catMatches.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 15px;">Aucun match enregistré</td></tr>`;
+                    return;
+                }
+
+                catMatches.forEach((m) => {
+                    const index = savedMatches.indexOf(m);
+                    const tr = document.createElement('tr');
+
+                    let scoreBadge = '';
+                    if (m.statut === 'Terminé') {
+                        const nous = parseInt(m.scoreNous) || 0;
+                        const eux = parseInt(m.scoreEux) || 0;
+                        const gagne = nous > eux;
+                        const egalite = nous === eux;
+                        const bg = gagne ? '#4CAF50' : (egalite ? '#FF9800' : '#F44336');
+                        scoreBadge = `<span style="background: ${bg}; color: white; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">${nous} - ${eux}</span>`;
+                    } else {
+                        scoreBadge = `<span style="background: #9E9E9E; color: white; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">À venir</span>`;
+                    }
+
+                    tr.innerHTML = `
+                        <td>${m.date ? new Date(m.date).toLocaleDateString('fr-FR') : '-'}</td>
+                        <td><b>${m.adversaire}</b></td>
+                        <td>${m.lieu || 'Domicile'}</td>
+                        <td>${scoreBadge}</td>
+                        <td style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" style="padding: 5px 8px; font-size: 0.8rem;" onclick="openMatchStatsModal(${index})" title="Saisir les stats joueurs"><i class="fas fa-chart-bar"></i> Stats</button>
+                            <button class="btn btn-mod-profil" style="padding: 5px 8px; font-size: 0.8rem;" onclick="openMatchModal(${index})" title="Modifier le match"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-secondary btn-supprimer" style="padding: 5px 8px; font-size: 0.8rem;" onclick="deleteMatch(${index})" title="Supprimer"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
+        }
+
+        function openMatchModal(index = null) {
+            editingMatchIndex = index;
+            if (index !== null) {
+                const m = savedMatches[index];
+                document.getElementById('modalMatchTitle').textContent = "Modifier le Match";
+                document.getElementById('btnSaveMatch').textContent = "Mettre à jour";
+                document.getElementById('m-cat').value = m.cat;
+                document.getElementById('m-adversaire').value = m.adversaire;
+                document.getElementById('m-date').value = m.date || '';
+                document.getElementById('m-lieu').value = m.lieu || 'Domicile';
+                document.getElementById('m-statut').value = m.statut || 'A venir';
+                document.getElementById('m-score-nous').value = m.scoreNous !== undefined ? m.scoreNous : 0;
+                document.getElementById('m-score-eux').value = m.scoreEux !== undefined ? m.scoreEux : 0;
+            } else {
+                document.getElementById('modalMatchTitle').textContent = "Nouveau Match";
+                document.getElementById('btnSaveMatch').textContent = "Enregistrer";
+                document.getElementById('m-cat').value = 'U13F';
+                document.getElementById('m-adversaire').value = '';
+                document.getElementById('m-date').value = new Date().toISOString().slice(0, 10);
+                document.getElementById('m-lieu').value = 'Domicile';
+                document.getElementById('m-statut').value = 'A venir';
+                document.getElementById('m-score-nous').value = 0;
+                document.getElementById('m-score-eux').value = 0;
+            }
+            toggleScoreInputs();
+            openModal('modalMatch');
+        }
+
+        function toggleScoreInputs() {
+            const statut = document.getElementById('m-statut').value;
+            const container = document.getElementById('m-scores-container');
+            if (statut === 'Terminé') {
+                container.style.display = 'flex';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function saveMatch() {
+            const cat = document.getElementById('m-cat').value;
+            const adversaire = document.getElementById('m-adversaire').value.trim();
+            const date = document.getElementById('m-date').value;
+            const lieu = document.getElementById('m-lieu').value;
+            const statut = document.getElementById('m-statut').value;
+            const scoreNous = parseInt(document.getElementById('m-score-nous').value) || 0;
+            const scoreEux = parseInt(document.getElementById('m-score-eux').value) || 0;
+
+            if (!adversaire) {
+                alert("Veuillez renseigner le nom de l'équipe adverse.");
+                return;
+            }
+
+            if (editingMatchIndex !== null) {
+                savedMatches[editingMatchIndex] = {
+                    ...savedMatches[editingMatchIndex],
+                    cat, adversaire, date, lieu, statut, scoreNous, scoreEux
+                };
+            } else {
+                savedMatches.push({
+                    id: 'match_' + Date.now(),
+                    cat, adversaire, date, lieu, statut, scoreNous, scoreEux,
+                    playerStats: {}
+                });
+            }
+
+            localStorage.setItem('sectionSportiveMatches', JSON.stringify(savedMatches));
+            refreshMatchesTable();
+            closeModal('modalMatch');
+        }
+
+        function deleteMatch(index) {
+            if (confirm("Voulez-vous supprimer ce match ?")) {
+                savedMatches.splice(index, 1);
+                localStorage.setItem('sectionSportiveMatches', JSON.stringify(savedMatches));
+                refreshMatchesTable();
+            }
+        }
+
+        // Saisir les stats joueurs pour un match
+        function openMatchStatsModal(index) {
+            currentMatchForStats = savedMatches[index];
+            if (!currentMatchForStats) return;
+
+            const cat = currentMatchForStats.cat;
+            const catLabels = { "U13F": "U13 Filles", "U13G": "U13 Garçons", "U15F": "U15 Filles", "U15G": "U15 Garçons" };
+
+            document.getElementById('modalStatsMatchTitle').textContent = `Statistiques des Joueurs`;
+            document.getElementById('modalStatsMatchSubtitle').textContent = `Match contre ${currentMatchForStats.adversaire} (${catLabels[cat] || cat}) - ${currentMatchForStats.date ? new Date(currentMatchForStats.date).toLocaleDateString('fr-FR') : ''}`;
+
+            const container = document.getElementById('stats-players-container');
+            container.innerHTML = '';
+
+            // Filtrer les joueurs de la catégorie du match
+            const catPlayers = savedPlayers.filter(p => p.cat === cat);
+
+            if (catPlayers.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 20px;">Aucun joueur n'est actuellement inscrit dans la catégorie ${catLabels[cat] || cat}. Veuillez ajouter des joueurs dans l'onglet Effectif.</p>`;
+            } else {
+                currentMatchForStats.playerStats = currentMatchForStats.playerStats || {};
+                catPlayers.forEach(p => {
+                    const pKey = `${p.nom.toUpperCase()}_${p.prenom}`;
+                    const pts = currentMatchForStats.playerStats[pKey] !== undefined ? currentMatchForStats.playerStats[pKey] : 0;
+
+                    const div = document.createElement('div');
+                    div.style.cssText = "display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.03); padding: 10px 15px; border-radius: var(--border-radius-sm); border: 1px solid rgba(0,0,0,0.05);";
+                    div.innerHTML = `
+                        <div>
+                            <b style="font-size: 1rem; color: var(--text-dark);">${p.nom.toUpperCase()} ${p.prenom}</b>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); margin-left: 8px;">(Classe ${p.classe})</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Points marqués :</label>
+                            <input type="number" class="form-control player-match-pts" data-pkey="${pKey}" value="${pts}" min="0" style="width: 85px; height: 38px; text-align: center; font-weight: bold;">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            openModal('modalStatsMatch');
+        }
+
+        function saveMatchPlayerStats() {
+            if (!currentMatchForStats) return;
+
+            currentMatchForStats.playerStats = currentMatchForStats.playerStats || {};
+            const inputs = document.querySelectorAll('.player-match-pts');
+            inputs.forEach(input => {
+                const pKey = input.getAttribute('data-pkey');
+                const pts = parseInt(input.value) || 0;
+                currentMatchForStats.playerStats[pKey] = pts;
+            });
+
+            localStorage.setItem('sectionSportiveMatches', JSON.stringify(savedMatches));
+            closeModal('modalStatsMatch');
+            alert("Statistiques du match enregistrées avec succès !");
+        }
+
+        // Consulter les stats d'un joueur
+        function openPlayerStatsHistory(player) {
+            const pKey = `${player.nom.toUpperCase()}_${player.prenom}`;
+            document.getElementById('playerStatsTitle').textContent = `${player.nom.toUpperCase()} ${player.prenom}`;
+            document.getElementById('playerStatsSubtitle').textContent = `Catégorie ${player.cat} - Classe ${player.classe}`;
+
+            const tbody = document.getElementById('player-stats-history-tbody');
+            tbody.innerHTML = '';
+
+            const playerMatches = savedMatches.filter(m => m.cat === player.cat && m.playerStats && m.playerStats[pKey] !== undefined);
+
+            let totalPts = 0;
+            let nbMatchs = playerMatches.length;
+
+            if (nbMatchs === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 15px;">Aucune statistique de match enregistrée pour ce joueur.</td></tr>`;
+            } else {
+                playerMatches.forEach(m => {
+                    const pts = m.playerStats[pKey] || 0;
+                    totalPts += pts;
+
+                    const tr = document.createElement('tr');
+                    let scoreStr = '-';
+                    if (m.statut === 'Terminé') {
+                        scoreStr = `${m.scoreNous} - ${m.scoreEux}`;
+                    }
+
+                    tr.innerHTML = `
+                        <td>${m.date ? new Date(m.date).toLocaleDateString('fr-FR') : '-'}</td>
+                        <td><b>${m.adversaire}</b></td>
+                        <td>${m.lieu || 'Domicile'}</td>
+                        <td>${scoreStr}</td>
+                        <td><b style="color: var(--primary-purple); font-size: 1.1rem;">${pts} pt${pts > 1 ? 's' : ''}</b></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            const ppm = nbMatchs > 0 ? (totalPts / nbMatchs).toFixed(1) : 0;
+            document.getElementById('stat-matchs-joues').textContent = nbMatchs;
+            document.getElementById('stat-total-points').textContent = totalPts;
+            document.getElementById('stat-moyenne-ppm').textContent = ppm;
+
+            openModal('modalConsultPlayerStats');
+        }
+
+        // --- Fonctions d'Exportation / Importation JSON (Sauvegarder & Charger) ---
+        function exportAppData() {
+            const appData = {
+                version: "1.0",
+                exportDate: new Date().toISOString(),
+                players: JSON.parse(localStorage.getItem('sectionSportivePlayers')) || savedPlayers,
+                materiels: JSON.parse(localStorage.getItem('sectionSportiveMateriels')) || savedMateriels,
+                preCommandes: JSON.parse(localStorage.getItem('sectionSportivePreCommandes')) || savedPreCommandes,
+                fournisseurOrders: JSON.parse(localStorage.getItem('sectionSportiveFournisseurOrders')) || savedFournisseurOrders,
+                matches: JSON.parse(localStorage.getItem('sectionSportiveMatches')) || savedMatches
+            };
+
+            const jsonString = JSON.stringify(appData, null, 2);
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            const today = new Date().toISOString().slice(0, 10);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sauvegarde_section_sportive_${today}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function importAppData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (!importedData || typeof importedData !== 'object') {
+                        alert("Le fichier de sauvegarde est invalide.");
+                        return;
+                    }
+
+                    if (confirm("Voulez-vous vraiment importer cette sauvegarde ? Toutes les données actuelles seront remplacées par celles du fichier.")) {
+                        if (Array.isArray(importedData.players)) {
+                            savedPlayers = importedData.players;
+                            localStorage.setItem('sectionSportivePlayers', JSON.stringify(savedPlayers));
+                        }
+                        if (Array.isArray(importedData.materiels)) {
+                            savedMateriels = importedData.materiels;
+                            localStorage.setItem('sectionSportiveMateriels', JSON.stringify(savedMateriels));
+                        }
+                        if (Array.isArray(importedData.preCommandes)) {
+                            savedPreCommandes = importedData.preCommandes;
+                            localStorage.setItem('sectionSportivePreCommandes', JSON.stringify(savedPreCommandes));
+                        }
+                        if (Array.isArray(importedData.fournisseurOrders)) {
+                            savedFournisseurOrders = importedData.fournisseurOrders;
+                            localStorage.setItem('sectionSportiveFournisseurOrders', JSON.stringify(savedFournisseurOrders));
+                        }
+                        if (Array.isArray(importedData.matches)) {
+                            savedMatches = importedData.matches;
+                            localStorage.setItem('sectionSportiveMatches', JSON.stringify(savedMatches));
+                        }
+
+                        // Rafraîchir toutes les tables de l'interface
+                        refreshTables();
+                        refreshMaterielTable();
+                        refreshPreCommandesTable();
+                        renderFournisseurOrders();
+                        refreshMatchesTable();
+
+                        alert("Les données ont été importées avec succès !");
+                    }
+                } catch (err) {
+                    alert("Erreur lors de la lecture du fichier JSON : " + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
     </script>
 
