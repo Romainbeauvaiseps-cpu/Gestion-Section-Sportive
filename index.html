@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Section Sportive Basket</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Palette Beige, Blanc, Violet/Bordeaux */
+            --beige-bg: #F4F1EA;
+            /* Beige clair pour le fond global */
+            --white-card: #FFFFFF;
+            /* Blanc pour les blocs */
+            --purple-light: #BCAAA4;
+            --primary-purple: #5E35B1;
+            /* Violet sobre et sportif */
+            --primary-light: #7E57C2;
+            --secondary-burgundy: #880E4F;
+            /* Bordeaux sombre */
+            --pale-yellow: #FFF9C4;
+            /* Optionnel */
+
+            /* Glassmorphism Variables pour Navbar */
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-bg-hover: rgba(255, 255, 255, 0.6);
+            --glass-bg-dark: rgba(0, 0, 0, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            --glass-blur: blur(16px);
+
+            /* Text & Utilities */
+            --text-dark: #2C2C2C;
+            --text-light: #F5F5F7;
+            --text-muted: #666666;
+            --border-radius-lg: 24px;
+            --border-radius-md: 16px;
+            --border-radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar for Apple feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            /* Fond par défaut (pages internes) */
+            background-color: var(--beige-bg);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            flex-direction: row;
+            transition: background-color 0.4s ease;
+        }
+
+        body.home-mode {
+            background-color: black;
+            color: var(--text-light);
+        }
+
+        /* --- Navbar (Sidebar) --- */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--glass-border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+            color: var(--text-dark);
+            z-index: 10;
+        }
+
+        body.home-mode .sidebar {
+            background: var(--glass-bg-dark);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+            padding: 30px 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            padding: 0 10px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            color: var(--secondary-burgundy);
+            letter-spacing: 0.5px;
+        }
+
+        body.home-mode .sidebar-header h2 {
+            color: var(--text-light);
+        }
+
+        .sidebar.collapsed .sidebar-header h2 {
+            display: none;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            padding: 14px 15px;
+            text-decoration: none;
+            color: var(--text-muted);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        body.home-mode .nav-links li a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: var(--glass-bg-hover);
+            color: var(--primary-purple);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body.home-mode .nav-links li a:hover,
+        body.home-mode .nav-links li a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-light);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links li a i {
+            font-size: 1.2rem;
+            min-width: 35px;
+            text-align: center;
+        }
+
+        .nav-links li a span {
+            white-space: nowrap;
+        }
+
+        .sidebar.collapsed .nav-links li a span {
+            display: none;
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Responsive Sidebar to Bottom Tab Bar (Tablette & Mobile) */
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100% !important;
+                height: 70px;
+                flex-direction: row;
+                padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+                border-right: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                order: 2;
+                /* Move to bottom */
+                position: fixed;
+                bottom: 0;
+            }
+
+            .sidebar-header {
+                display: none;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                justify-content: space-around;
+                width: 100%;
+                gap: 5px;
+            }
+
+            .nav-links li {
+                flex: 1;
+            }
+
+            .nav-links li a {
+                flex-direction: column;
+                padding: 6px 4px;
+                font-size: 0.7rem;
+                text-align: center;
+                gap: 4px;
+            }
+
+            .nav-links li a i {
+                font-size: 1.2rem;
+                min-width: auto;
+            }
+
+            .sidebar.collapsed .nav-links li a span,
+            .nav-links li a span {
+                display: block;
+                /* Always show text on bottom bar */
+                font-size: 0.65rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+
+            .main-content {
+                margin: 10px;
+                margin-bottom: 85px;
+                /* Leave space for bottom bar */
+                padding: 20px 15px;
+                order: 1;
+            }
+
+            .grid-2x2 {
+                gap: 15px;
+            }
+
+            .category-card {
+                flex: 1 1 calc(50% - 15px);
+                min-width: 280px;
+                padding: 20px;
+            }
+
+            .header-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .category-card {
+                flex: 1 1 100%;
+            }
+
+            .header-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-section .btn,
+            .header-section>div {
+                width: 100%;
+            }
+
+            .header-section>div {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .header-section>div .btn {
+                margin-right: 0 !important;
+            }
+        }
+
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: var(--transition);
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+            animation: springFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes springFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-section h1 {
+            color: var(--primary-purple);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        body.home-mode .header-section h1 {
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        body.home-mode .header-section p {
+            color: var(--text-light);
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 12px 24px;
+            border: 1px solid var(--primary-purple);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary-purple);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-burgundy);
+            color: white;
+            border-color: var(--secondary-burgundy);
+        }
+
+        .btn-secondary:hover {
+            background-color: #A3155B;
+            /* Brighter burgundy */
+            border-color: #A3155B;
+            color: white;
+        }
+
+        /* --- Flex Layouts replacing Grids --- */
+        /* Replaces .grid-2x2 */
+        .grid-2x2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .category-card {
+            background: var(--white-card);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            flex: 1 1 calc(50% - 25px);
+            /* Flex layout */
+            min-width: 300px;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .category-card h3 {
+            color: var(--secondary-burgundy);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+        }
+
+        /* Tables Apple Style */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        td {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        th {
+            background-color: var(--beige-bg);
+            color: var(--primary-purple);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child {
+            border-top-left-radius: var(--border-radius-sm);
+            border-bottom-left-radius: var(--border-radius-sm);
+        }
+
+        th:last-child {
+            border-top-right-radius: var(--border-radius-sm);
+            border-bottom-right-radius: var(--border-radius-sm);
+        }
+
+        tr {
+            transition: var(--transition);
+        }
+
+        tbody tr:hover {
+            background-color: rgba(94, 53, 177, 0.05);
+        }
+
+        td:first-child {
+            border-top-left-radius: var(--border-radius-sm);
+            border-bottom-left-radius: var(--border-radius-sm);
+        }
+
+        td:last-child {
+            border-top-right-radius: var(--border-radius-sm);
+            border-bottom-right-radius: var(--border-radius-sm);
+        }
+
+        /* Conteneur de tableau réactif pour tablette et mobile */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 10px;
+        }
+
+        .table-responsive table {
+            min-width: 580px;
+        }
+
+        /* Action buttons in tables - touch target optimization */
+        .btn-mod-profil,
+        .btn-fiche-visuelle,
+        .btn-supprimer {
+            min-height: 36px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px !important;
+            font-size: 0.85rem !important;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        /* --- Hero Section Accueil --- */
+        .accueil-hero {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 75vh;
+        }
+
+        .huge-center-logo {
+            max-width: 80%;
+            max-height: 55vh;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.1));
+        }
+
+        .top-right-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 135px;
+            z-index: 10;
+        }
+
+        /* --- Modals (Popups) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+            animation: fadeInOverlay 0.3s forwards;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 35px;
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(20px) scale(0.95);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-content.large {
+            max-width: 800px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--text-dark);
+        }
+
+        .close-modal:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            height: 46px;
+            /* Homogénéise la taille (input vs select) */
+            padding: 10px 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            outline: none;
+            color: var(--text-dark);
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            background: #fff;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(58, 12, 163, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 25px;
+        }
+
+        /* Specific Layouts replacing Grids for forms */
+        .grid-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .grid-inputs .form-group {
+            flex: 1 1 calc(50% - 15px);
+            min-width: 150px;
+        }
+
+        /* Ajustement spécifique pour les modales larges avec flexbox */
+        .modal-content.large .form-group {
+            margin-bottom: 0;
+        }
+
+        /* Flex pour les tailles dans modalFournisseur */
+        .size-inputs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .size-inputs-container>div {
+            flex: 1 1 calc(25% - 15px);
+            min-width: 80px;
+        }
+
+        /* --- Carte Joueur Visuelle --- */
+        .fut-card {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            height: auto;
+            min-height: 520px;
+            background: linear-gradient(135deg, #111 0%, #2a2a2a 100%);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 0 2px rgba(212, 175, 55, 0.6);
+            overflow: hidden;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px;
+            padding-bottom: 35px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .fut-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, transparent 40%, rgba(212, 175, 55, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .fut-card-header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            z-index: 2;
+        }
+
+        .fut-score-main {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #d4af37;
+            /* Or premium */
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .fut-position {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .fut-image-placeholder {
+            width: 170px;
+            height: 170px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .fut-image-placeholder:hover {
+            border-color: #fff;
+            transform: scale(1.05);
+        }
+
+        .fut-image-placeholder::after {
+            content: '\f03e';
+            /* Icon image FontAwesome */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            font-size: 2rem;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+
+        .fut-image-placeholder:hover::after {
+            opacity: 1;
+        }
+
+        .fut-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .fut-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-align: center;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+            padding-bottom: 5px;
+            width: 90%;
+            z-index: 2;
+        }
+
+        .fut-style {
+            font-size: 1.1rem;
+            color: #d4af37;
+            font-style: italic;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .fut-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .fut-stat {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 4px;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .fut-stat-val {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: #fff;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .fut-stat-label {
+            font-weight: 600;
+            color: #b0b0b0;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #modalConsultCommande,
+            #modalConsultCommande * {
+                visibility: visible;
+            }
+
+            #modalConsultCommande {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+            }
+
+            #modalConsultCommande .modal-content {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="home-mode">
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Section Basket</h2>
+            <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="navigate('accueil')" class="active" id="nav-accueil"><i class="fas fa-home"></i>
+                    <span>Accueil</span></a></li>
+            <li><a href="#" onclick="navigate('effectif')" id="nav-effectif"><i class="fas fa-users"></i>
+                    <span>Effectif</span></a></li>
+            <li><a href="#" onclick="navigate('materiel')" id="nav-materiel"><i class="fas fa-basketball-ball"></i>
+                    <span>Matériel</span></a></li>
+            <li><a href="#" onclick="navigate('stocks')" id="nav-stocks"><i class="fas fa-tshirt"></i> <span>Stocks &
+                        Commandes</span></a></li>
+            <li><a href="#" onclick="navigate('championnat')" id="nav-championnat"><i class="fas fa-trophy"></i>
+                    <span>Championnat</span></a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content home-mode">
+
+        <section id="accueil" class="page-section active">
+            <div class="accueil-hero">
+                <img src="logo/logoss2.png" class="top-right-logo" alt="Logo Léonard de Vinci">
+                <div class="header-section"
+                    style="border-bottom: none; justify-content: center; margin-bottom: 20px; padding-bottom: 0;">
+                    <h1 style="font-size: 3.5rem;">Gestion Section Sportive</h1>
+                </div>
+                <img src="logo/logossnoir.PNG" class="huge-center-logo" alt="Logo Section Sportive">
+            </div>
+        </section>
+
+        <section id="effectif" class="page-section">
+            <div class="header-section">
+                <h1>Effectif de la Section</h1>
+                <button class="btn btn-primary" onclick="openModal('modalPlayer')"><i class="fas fa-plus"></i> Ajouter
+                    un joueur</button>
+            </div>
+
+            <div class="grid-2x2">
+                <div class="category-card">
+                    <h3>U13 Filles</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Classe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-U13F"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U13 Garçons</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Classe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-U13G"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U15 Filles</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Classe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-U15F"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <h3>U15 Garçons</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Classe</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-U15G"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="materiel" class="page-section">
+            <div class="header-section">
+                <h1>Gestion du Matériel</h1>
+                <button class="btn btn-primary" onclick="openModal('modalMateriel')"><i class="fas fa-plus"></i> Nouveau
+                    matériel</button>
+            </div>
+            <div class="category-card">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Bon état</th>
+                                <th>Usé</th>
+                                <th>Dégradé</th>
+                                <th>HS</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-materiel">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="stocks" class="page-section">
+            <div class="header-section">
+                <h1>Gestion des Stocks & Commandes</h1>
+                <div>
+                    <button class="btn btn-secondary" onclick="openModal('modalPreCommande')"
+                        style="margin-right: 10px;"><i class="fas fa-user-plus"></i> Nouvelle Commande (Élève)</button>
+                    <button class="btn btn-primary" onclick="openFournisseurModal()"><i
+                            class="fas fa-shopping-cart"></i> Passer la commande</button>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <h3>Pré-commandes Élèves</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Élève</th>
+                                <th>Vêtement</th>
+                                <th>Taille</th>
+                                <th>A payé</th>
+                                <th>Montant</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-precommandes">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="category-card" style="margin-top: 25px;">
+                <h3>Bilan des Commandes</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vêtement</th>
+                                <th style="text-align: center;">S</th>
+                                <th style="text-align: center;">M</th>
+                                <th style="text-align: center;">L</th>
+                                <th style="text-align: center;">XL</th>
+                                <th style="text-align: center;">Total Quantité</th>
+                                <th style="text-align: right;">Total Prix (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-bilan-precommandes">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6" style="text-align: right; font-weight: bold; padding-top: 15px;">TOTAL
+                                    GÉNÉRAL :</td>
+                                <td id="bilan-total-general"
+                                    style="font-weight: bold; color: #d4af37; text-align: right; font-size: 1.1rem; padding-top: 15px;">
+                                    0€</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="category-card" style="margin-top: 25px;">
+                <h3 style="text-align: center; margin-bottom: 15px; color: var(--text-light);">
+                    Historique des Commandes
+                </h3>
+                <div id="container-vignettes-fournisseur" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <!-- Rempli en JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="championnat" class="page-section">
+            <div class="header-section">
+                <h1>Championnat</h1>
+                <button class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau Match</button>
+            </div>
+            <p>Espace de gestion des poules et du calendrier des rencontres.</p>
+        </section>
+
+    </main>
+
+    <div class="modal-overlay" id="modalPlayer">
+        <div class="modal-content">
+            <button class="close-modal" onclick="cancelPlayerModal()"><i class="fas fa-times"></i></button>
+            <h2 id="modalPlayerTitle" style="margin-bottom: 20px;">Nouveau Joueur</h2>
+
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" id="p-nom" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" id="p-prenom" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Sexe</label>
+                    <select id="p-sexe" class="form-control">
+                        <option value="M">Garçon</option>
+                        <option value="F">Fille</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Âge</label>
+                    <input type="number" id="p-age" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Classe (ex: 4A)</label>
+                    <input type="text" id="p-classe" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Catégorie</label>
+                    <select id="p-categorie" class="form-control">
+                        <option value="U13F">U13F</option>
+                        <option value="U13G">U13G</option>
+                        <option value="U15F">U15F</option>
+                        <option value="U15G">U15G</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions"
+                style="display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 10px;">
+                <button class="btn" style="flex: 1; padding-left: 5px; padding-right: 5px;"
+                    onclick="cancelPlayerModal()">Annuler</button>
+                <button class="btn btn-secondary" style="flex: 2; padding-left: 5px; padding-right: 5px;"
+                    onclick="openModal('modalFicheTechnique')">
+                    Remplir fiche joueur</button>
+                <button class="btn btn-primary" id="btnAddPlayer"
+                    style="flex: 1; padding-left: 5px; padding-right: 5px;" onclick="addPlayer()">+ Ajouter</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalFicheTechnique" style="z-index: 1010;">
+        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+            <button class="close-modal" onclick="closeModal('modalFicheTechnique')"><i
+                    class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px;">Fiche Technique Joueur</h2>
+
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label>Main forte</label>
+                    <select id="t-main" class="form-control">
+                        <option value="Droite">Droite</option>
+                        <option value="Gauche">Gauche</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Poste</label>
+                    <select id="t-poste" class="form-control">
+                        <option value="1">1 - Meneur</option>
+                        <option value="2">2 - Arrière</option>
+                        <option value="3">3 - Ailier</option>
+                        <option value="4">4 - Ailier Fort</option>
+                        <option value="5">5 - Pivot</option>
+                    </select>
+                </div>
+                <div class="form-group" style="width: 100%;">
+                    <label>Style de jeu</label>
+                    <input type="text" id="t-style" class="form-control" placeholder="Ex: Slidder, Spot-up shooter...">
+                </div>
+
+                <div class="form-group" style="width: 100%; margin-top: 10px;">
+                    <h3
+                        style="margin: 0; font-size: 1.1rem; color: var(--primary-purple); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 5px;">
+                        Attributs Techniques (60-99)</h3>
+                </div>
+
+                <div class="form-group">
+                    <label>Qualité de dribble</label>
+                    <input type="number" id="t-dribble" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Capacité de passes</label>
+                    <input type="number" id="t-passes" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+
+                <div class="form-group">
+                    <label>Tir : 2pts</label>
+                    <input type="number" id="t-tir2" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Tir : 3pts</label>
+                    <input type="number" id="t-tir3" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Tir : LF</label>
+                    <input type="number" id="t-tirlf" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+
+                <div class="form-group">
+                    <label>Défense : Porteur</label>
+                    <input type="number" id="t-defp" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Défense : Non porteur</label>
+                    <input type="number" id="t-defnp" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Intelligence de jeu (QI)</label>
+                    <input type="number" id="t-qi" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Jeu non porteur</label>
+                    <input type="number" id="t-jnp" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Rebond défensif</label>
+                    <input type="number" id="t-rbd" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Rebond offensif</label>
+                    <input type="number" id="t-rbo" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+                <div class="form-group">
+                    <label>Finition</label>
+                    <input type="number" id="t-fin" class="form-control" min="60" max="99" placeholder="Ex: 75">
+                </div>
+            </div>
+
+            <div class="modal-actions"
+                style="display: flex; justify-content: space-between; gap: 10px; margin-top: 20px;">
+                <button class="btn" style="background:#eee; color:#333; flex: 1;"
+                    onclick="cancelFicheTechnique()">Annuler</button>
+                <button class="btn btn-primary" style="flex: 1;"
+                    onclick="closeModal('modalFicheTechnique')">Valider</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCarteJoueur"
+        style="z-index: 1020; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+        <div style="position: relative;">
+            <button class="close-modal" onclick="closeModal('modalCarteJoueur')"
+                style="top: -15px; right: -15px; z-index: 100; background: #fff; color: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"><i
+                    class="fas fa-times"></i></button>
+            <div class="fut-card" id="visualPlayerCard">
+                <div class="fut-card-header">
+                    <div style="text-align: center;">
+                        <div class="fut-score-main" id="c-score">99</div>
+                        <div class="fut-position" id="c-poste">M</div>
+                    </div>
+                    <div style="opacity: 0.9;">
+                        <img src="logo/logoss2.png" alt="Logo Section Sportive"
+                            style="height: 100px; object-fit: contain;">
+                    </div>
+                </div>
+
+                <div class="fut-image-placeholder" onclick="document.getElementById('c-photo-upload').click()">
+                    <i class="fas fa-user-ninja" id="c-photo-icon"></i>
+                    <img id="c-photo-img" class="fut-photo-img" style="display: none;">
+                </div>
+                <input type="file" id="c-photo-upload" accept="image/*" style="display: none;"
+                    onchange="handlePhotoUpload(event)">
+
+                <div class="fut-name" id="c-nom">NOM PRENOM</div>
+                <div class="fut-style" id="c-style">Style de jeu</div>
+
+                <div class="fut-stats-grid">
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-qi">80</span> <span
+                            class="fut-stat-label">QI</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-dribble">80</span> <span
+                            class="fut-stat-label">DRI</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-passes">80</span> <span
+                            class="fut-stat-label">PAS</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-tir2">80</span> <span
+                            class="fut-stat-label">T2</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-tir3">80</span> <span
+                            class="fut-stat-label">T3</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-tirlf">80</span> <span
+                            class="fut-stat-label">LF</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-fin">80</span> <span
+                            class="fut-stat-label">FIN</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-jnp">80</span> <span
+                            class="fut-stat-label">JNP</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-defp">80</span> <span
+                            class="fut-stat-label">DEF P</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-defnp">80</span> <span
+                            class="fut-stat-label">DEF NP</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-rbo">80</span> <span
+                            class="fut-stat-label">RBO</span></div>
+                    <div class="fut-stat"><span class="fut-stat-val" id="c-rbd">80</span> <span
+                            class="fut-stat-label">RBD</span></div>
+                    <div class="fut-stat"
+                        style="grid-column: span 3; display: flex; flex-direction: row; justify-content: center; gap: 15px; background: transparent; border: none; padding: 0; margin-top: 5px;">
+                        <span class="fut-stat-label" style="font-size: 0.9rem;">MAIN FORTE:</span> <span
+                            class="fut-stat-val" id="c-main" style="font-size: 1rem; color: #d4af37;">Droite</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalMateriel">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modalMateriel')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 5px;">Nouveau matériel</h2>
+            <p style="color: #666; margin-bottom: 20px; font-size: 0.9rem;">Ajouter à la section sportive</p>
+
+            <div class="form-group">
+                <label>Nom *</label>
+                <input type="text" id="mat-nom" placeholder="Ex : Chasubles" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Catégorie</label>
+                <select id="mat-cat" class="form-control">
+                    <option value="Sans catégorie">Sans catégorie</option>
+                    <option value="Entraînement">Entraînement</option>
+                    <option value="Match">Match</option>
+                </select>
+            </div>
+
+            <label style="display:block; margin-bottom: 10px; font-weight: bold;">Quantité par état</label>
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label style="color: green;">Bon état</label>
+                    <input type="number" id="mat-bon" value="0" class="form-control" oninput="updateMatTotal()">
+                </div>
+                <div class="form-group">
+                    <label style="color: blue;">Usé</label>
+                    <input type="number" id="mat-use" value="0" class="form-control" oninput="updateMatTotal()">
+                </div>
+                <div class="form-group">
+                    <label style="color: orange;">Dégradé</label>
+                    <input type="number" id="mat-deg" value="0" class="form-control" oninput="updateMatTotal()">
+                </div>
+                <div class="form-group">
+                    <label style="color: red;">Hors service</label>
+                    <input type="number" id="mat-hs" value="0" class="form-control" oninput="updateMatTotal()">
+                </div>
+            </div>
+            <p style="margin-bottom: 15px; font-size: 0.9rem;">Total : <b id="mat-total-text">0</b> unités</p>
+
+            <div class="form-group">
+                <label>Objectif mini</label>
+                <input type="number" id="mat-obj" value="0" class="form-control">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('modalMateriel')">Annuler</button>
+                <button class="btn btn-primary" onclick="addMateriel()">+ Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalPreCommande">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modalPreCommande')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 5px;">Nouvelle Commande</h2>
+            <p style="color: #666; margin-bottom: 20px; font-size: 0.9rem;">Ajouter un vêtement pour un élève</p>
+
+            <div class="form-group">
+                <label>Élève *</label>
+                <select id="pre-eleve" class="form-control">
+                    <option value="">Sélectionner un élève</option>
+                </select>
+            </div>
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label>Vêtement *</label>
+                    <select id="pre-vetement" class="form-control">
+                        <option value="">Sélectionner</option>
+                        <option value="T-shirt">T-shirt</option>
+                        <option value="Sweat">Sweat</option>
+                        <option value="Short">Short</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Taille *</label>
+                    <select id="pre-taille" class="form-control">
+                        <option value="">Sélectionner</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid-inputs">
+                <div class="form-group">
+                    <label>A payé ?</label>
+                    <select id="pre-paye" class="form-control">
+                        <option value="Non">Non</option>
+                        <option value="Oui">Oui</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Montant (€)</label>
+                    <input type="number" id="pre-montant" placeholder="Ex: 15" class="form-control">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('modalPreCommande')">Annuler</button>
+                <button class="btn btn-primary" onclick="addPreCommande()">+ Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalFournisseur">
+        <div class="modal-content large">
+            <button class="close-modal" onclick="closeModal('modalFournisseur')"><i class="fas fa-times"></i></button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <h2>Passer la commande</h2>
+                    <p style="color: #666; font-size: 0.9rem;">Ajustez les quantités avant validation</p>
+                </div>
+            </div>
+
+            <!-- T-SHIRT -->
+            <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="font-size: 1.1rem;">T-shirt</h3>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="f-tshirt-prix" placeholder="Prix U." oninput="updateFournisseurTotal()"
+                            style="width: 80px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                        <span>€</span>
+                        <span id="f-tshirt-total" style="color: var(--primary-purple); font-weight: bold;">0€</span>
+                    </div>
+                </div>
+                <div class="size-inputs-container">
+                    <div><label style="font-size: 0.8rem;">Taille S</label><input type="number" id="f-tshirt-s"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille M</label><input type="number" id="f-tshirt-m"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille L</label><input type="number" id="f-tshirt-l"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille XL</label><input type="number" id="f-tshirt-xl"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                </div>
+            </div>
+
+            <!-- SWEAT -->
+            <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="font-size: 1.1rem;">Sweat</h3>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="f-sweat-prix" placeholder="Prix U." oninput="updateFournisseurTotal()"
+                            style="width: 80px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                        <span>€</span>
+                        <span id="f-sweat-total" style="color: var(--primary-purple); font-weight: bold;">0€</span>
+                    </div>
+                </div>
+                <div class="size-inputs-container">
+                    <div><label style="font-size: 0.8rem;">Taille S</label><input type="number" id="f-sweat-s" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille M</label><input type="number" id="f-sweat-m" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille L</label><input type="number" id="f-sweat-l" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille XL</label><input type="number" id="f-sweat-xl"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                </div>
+            </div>
+
+            <!-- SHORT -->
+            <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="font-size: 1.1rem;">Short</h3>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="f-short-prix" placeholder="Prix U." oninput="updateFournisseurTotal()"
+                            style="width: 80px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                        <span>€</span>
+                        <span id="f-short-total" style="color: var(--primary-purple); font-weight: bold;">0€</span>
+                    </div>
+                </div>
+                <div class="size-inputs-container">
+                    <div><label style="font-size: 0.8rem;">Taille S</label><input type="number" id="f-short-s" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille M</label><input type="number" id="f-short-m" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille L</label><input type="number" id="f-short-l" value="0"
+                            class="form-control" oninput="updateFournisseurTotal()"></div>
+                    <div><label style="font-size: 0.8rem;">Taille XL</label><input type="number" id="f-short-xl"
+                            value="0" class="form-control" oninput="updateFournisseurTotal()"></div>
+                </div>
+            </div>
+
+            <h2 style="text-align: right; color: var(--primary-purple); margin-top: 20px;" id="f-commande-total">TOTAL
+                COMMANDE : 0€</h2>
+
+            <div class="modal-actions"
+                style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <button class="btn" style="background: var(--primary-light); color: white;"><i
+                        class="fas fa-download"></i>
+                    Exporter</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="closeModal('modalFournisseur')">Annuler</button>
+                    <button class="btn btn-primary" onclick="saveFournisseurOrder()"><i class="fas fa-check"></i>
+                        Valider la commande</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalConsultCommande">
+        <div class="modal-content large"
+            style="background: white; color: black; border-radius: 0; padding: 40px; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px;">
+                <div>
+                    <h1 style="margin: 0; font-size: 2rem; color: #333;">BON DE COMMANDE</h1>
+                    <p style="margin: 5px 0 0 0; color: #666; font-size: 1rem;">Section Sportive Basket</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="margin: 0; font-weight: bold; font-size: 1.1rem;">Date : <span id="consult-date"></span>
+                    </p>
+                    <p style="margin: 5px 0 0 0; color: #666;">Référence : CMD-<span id="consult-ref"></span></p>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; color: black;">
+                    <thead>
+                        <tr style="background: #f4f4f4; border-bottom: 2px solid #333;">
+                            <th
+                                style="padding: 12px; text-align: left; color: black; font-weight: bold; border: 1px solid #ddd; background-color: #f4f4f4;">
+                                Article</th>
+                            <th
+                                style="padding: 12px; text-align: left; color: black; font-weight: bold; border: 1px solid #ddd; background-color: #f4f4f4;">
+                                Détail des tailles</th>
+                            <th
+                                style="padding: 12px; text-align: center; color: black; font-weight: bold; border: 1px solid #ddd; background-color: #f4f4f4;">
+                                Quantité Totale</th>
+                            <th
+                                style="padding: 12px; text-align: right; color: black; font-weight: bold; border: 1px solid #ddd; background-color: #f4f4f4;">
+                                Prix Unitaire</th>
+                            <th
+                                style="padding: 12px; text-align: right; color: black; font-weight: bold; border: 1px solid #ddd; background-color: #f4f4f4;">
+                                Total Ligne</th>
+                        </tr>
+                    </thead>
+                    <tbody id="consult-table-body">
+                        <!-- Rempli en JS -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"
+                                style="text-align: right; font-weight: bold; padding: 15px; font-size: 1.2rem; border-top: 2px solid #333; color: black;">
+                                TOTAL GÉNÉRAL :</td>
+                            <td id="consult-total-general"
+                                style="text-align: right; font-weight: bold; padding: 15px; font-size: 1.2rem; border-top: 2px solid #333; color: black;">
+                                0€</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div style="margin-top: 50px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: #666; font-size: 0.9rem;"><em>Document généré automatiquement par l'application Section
+                        Sportive.</em></p>
+                <div style="display: flex; gap: 15px;" class="no-print">
+                    <button class="btn" onclick="closeModal('modalConsultCommande')">Fermer</button>
+                    <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print"></i>
+                        Imprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Fonction pour gérer la navigation
+        function navigate(pageId) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Désactiver tous les liens
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Afficher la bonne section et activer le lien
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            // Gérer le fond noir profond exclusif à la page d'accueil
+            if (pageId === 'accueil') {
+                document.body.classList.add('home-mode');
+            } else {
+                document.body.classList.remove('home-mode');
+            }
+        }
+
+        // Fonction pour réduire/agrandir la navbar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+
+        // Gestion des modales
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Sauvegarde locale
+        let savedPlayers = JSON.parse(localStorage.getItem('sectionSportivePlayers')) || [];
+        let editingPlayerIndex = -1;
+
+        function refreshTables() {
+            ['U13F', 'U13G', 'U15F', 'U15G'].forEach(cat => {
+                const tbody = document.getElementById('table-' + cat);
+                if (tbody) tbody.innerHTML = '';
+            });
+            savedPlayers.forEach(p => renderPlayerRow(p));
+            populateElevesDropdown();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshTables();
+            refreshMaterielTable();
+            refreshPreCommandesTable();
+            renderFournisseurOrders();
+        });
+
+        // Gestion du Matériel
+        let savedMateriels = JSON.parse(localStorage.getItem('sectionSportiveMateriels')) || [
+            { nom: 'Chasubles', cat: 'Entraînement', bon: 15, use: 5, deg: 2, hs: 0, total: 22 }
+        ];
+
+        function refreshMaterielTable() {
+            const tbody = document.getElementById('table-materiel');
+            if (tbody) {
+                tbody.innerHTML = '';
+                savedMateriels.forEach((mat, index) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${mat.nom}</td>
+                        <td>${mat.cat}</td>
+                        <td>${mat.bon}</td>
+                        <td>${mat.use}</td>
+                        <td>${mat.deg}</td>
+                        <td>${mat.hs}</td>
+                        <td><b>${mat.total}</b></td>
+                        <td><button class="btn btn-supprimer" style="padding: 2px 5px; font-size: 0.8rem;" onclick="deleteMateriel(${index})"><i class="fas fa-trash"></i></button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+
+        function deleteMateriel(index) {
+            if (confirm('Voulez-vous supprimer ce matériel ?')) {
+                savedMateriels.splice(index, 1);
+                localStorage.setItem('sectionSportiveMateriels', JSON.stringify(savedMateriels));
+                refreshMaterielTable();
+            }
+        }
+
+        function updateMatTotal() {
+            const bon = parseInt(document.getElementById('mat-bon').value) || 0;
+            const use = parseInt(document.getElementById('mat-use').value) || 0;
+            const deg = parseInt(document.getElementById('mat-deg').value) || 0;
+            const hs = parseInt(document.getElementById('mat-hs').value) || 0;
+            document.getElementById('mat-total-text').textContent = bon + use + deg + hs;
+        }
+
+        function addMateriel() {
+            const nom = document.getElementById('mat-nom').value;
+            if (!nom) {
+                alert('Veuillez entrer un nom de matériel');
+                return;
+            }
+            const cat = document.getElementById('mat-cat').value;
+            const bon = parseInt(document.getElementById('mat-bon').value) || 0;
+            const use = parseInt(document.getElementById('mat-use').value) || 0;
+            const deg = parseInt(document.getElementById('mat-deg').value) || 0;
+            const hs = parseInt(document.getElementById('mat-hs').value) || 0;
+            const total = bon + use + deg + hs;
+
+            savedMateriels.push({ nom, cat, bon, use, deg, hs, total });
+            localStorage.setItem('sectionSportiveMateriels', JSON.stringify(savedMateriels));
+            refreshMaterielTable();
+
+            // Reset
+            document.getElementById('mat-nom').value = '';
+            document.getElementById('mat-bon').value = '0';
+            document.getElementById('mat-use').value = '0';
+            document.getElementById('mat-deg').value = '0';
+            document.getElementById('mat-hs').value = '0';
+            document.getElementById('mat-obj').value = '0';
+            document.getElementById('mat-total-text').textContent = '0';
+
+            closeModal('modalMateriel');
+        }
+
+        // Gestion des Pré-commandes
+        let savedPreCommandes = JSON.parse(localStorage.getItem('sectionSportivePreCommandes')) || [];
+
+        function refreshPreCommandesTable() {
+            const tbody = document.getElementById('table-precommandes');
+            if (tbody) {
+                tbody.innerHTML = '';
+                savedPreCommandes.forEach((cmd, index) => {
+                    const tr = document.createElement('tr');
+                    const payeStyle = cmd.paye === 'Oui' ? 'color: #4CAF50; font-weight: bold;' : 'color: #F44336; font-weight: bold;';
+                    tr.innerHTML = `
+                        <td>${cmd.eleve}</td>
+                        <td>${cmd.vetement}</td>
+                        <td>${cmd.taille}</td>
+                        <td><span style="${payeStyle}">${cmd.paye}</span></td>
+                        <td>${cmd.montant}€</td>
+                        <td><button class="btn btn-supprimer" style="padding: 2px 5px; font-size: 0.8rem;" onclick="deletePreCommande(${index})"><i class="fas fa-trash"></i></button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                updatePreCommandesSummary();
+            }
+        }
+
+        function updatePreCommandesSummary() {
+            const tbody = document.getElementById('table-bilan-precommandes');
+            const totalGeneralEl = document.getElementById('bilan-total-general');
+            if (!tbody || !totalGeneralEl) return;
+
+            const summary = {
+                'T-shirt': { S: 0, M: 0, L: 0, XL: 0, count: 0, montant: 0 },
+                'Sweat': { S: 0, M: 0, L: 0, XL: 0, count: 0, montant: 0 },
+                'Short': { S: 0, M: 0, L: 0, XL: 0, count: 0, montant: 0 }
+            };
+
+            let totalGeneral = 0;
+
+            savedPreCommandes.forEach(cmd => {
+                if (summary[cmd.vetement]) {
+                    if (summary[cmd.vetement][cmd.taille] !== undefined) {
+                        summary[cmd.vetement][cmd.taille]++;
+                    }
+                    summary[cmd.vetement].count++;
+                    const prix = parseFloat(cmd.montant) || 0;
+                    summary[cmd.vetement].montant += prix;
+                    totalGeneral += prix;
+                }
+            });
+
+            tbody.innerHTML = '';
+            ['T-shirt', 'Sweat', 'Short'].forEach(vetement => {
+                const data = summary[vetement];
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><b>${vetement}</b></td>
+                    <td style="text-align: center;">${data.S}</td>
+                    <td style="text-align: center;">${data.M}</td>
+                    <td style="text-align: center;">${data.L}</td>
+                    <td style="text-align: center;">${data.XL}</td>
+                    <td style="text-align: center; color: var(--secondary-burgundy); font-weight: bold;">${data.count}</td>
+                    <td style="text-align: right; font-weight: bold;">${data.montant}€</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            totalGeneralEl.textContent = totalGeneral + '€';
+        }
+
+        function deletePreCommande(index) {
+            if (confirm('Voulez-vous supprimer cette commande ?')) {
+                savedPreCommandes.splice(index, 1);
+                localStorage.setItem('sectionSportivePreCommandes', JSON.stringify(savedPreCommandes));
+                refreshPreCommandesTable();
+            }
+        }
+
+        function populateElevesDropdown() {
+            const select = document.getElementById('pre-eleve');
+            if (select) {
+                select.innerHTML = '<option value="">Sélectionner un élève</option>';
+                const sortedPlayers = [...savedPlayers].sort((a, b) => a.nom.localeCompare(b.nom));
+                sortedPlayers.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = `${p.nom.toUpperCase()} ${p.prenom}`;
+                    option.textContent = `${p.nom.toUpperCase()} ${p.prenom} (${p.cat})`;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function addPreCommande() {
+            const eleve = document.getElementById('pre-eleve').value;
+            const vetement = document.getElementById('pre-vetement').value;
+            const taille = document.getElementById('pre-taille').value;
+            const paye = document.getElementById('pre-paye').value;
+            const montant = document.getElementById('pre-montant').value || 0;
+
+            if (!eleve || !vetement || !taille) {
+                alert('Veuillez sélectionner un élève, un vêtement et une taille');
+                return;
+            }
+
+            savedPreCommandes.push({ eleve, vetement, taille, paye, montant });
+            localStorage.setItem('sectionSportivePreCommandes', JSON.stringify(savedPreCommandes));
+            refreshPreCommandesTable();
+
+            document.getElementById('pre-eleve').value = '';
+            document.getElementById('pre-vetement').value = '';
+            document.getElementById('pre-taille').value = '';
+            document.getElementById('pre-paye').value = 'Non';
+            document.getElementById('pre-montant').value = '';
+
+            closeModal('modalPreCommande');
+        }
+
+        // Gestion des Commandes Fournisseur
+        let savedFournisseurOrders = JSON.parse(localStorage.getItem('sectionSportiveFournisseurOrders')) || [];
+        let currentEditFournisseurIndex = -1;
+
+        function updateFournisseurTotal() {
+            let globalTotal = 0;
+            ['tshirt', 'sweat', 'short'].forEach(vetement => {
+                const s = parseInt(document.getElementById(`f-${vetement}-s`).value) || 0;
+                const m = parseInt(document.getElementById(`f-${vetement}-m`).value) || 0;
+                const l = parseInt(document.getElementById(`f-${vetement}-l`).value) || 0;
+                const xl = parseInt(document.getElementById(`f-${vetement}-xl`).value) || 0;
+                const prixU = parseFloat(document.getElementById(`f-${vetement}-prix`).value) || 0;
+
+                const qte = s + m + l + xl;
+                const totalItem = qte * prixU;
+                document.getElementById(`f-${vetement}-total`).textContent = totalItem + '€';
+                globalTotal += totalItem;
+            });
+            document.getElementById('f-commande-total').textContent = `TOTAL COMMANDE : ${globalTotal}€`;
+        }
+
+        function openFournisseurModal(index = null) {
+            currentEditFournisseurIndex = index;
+            if (index !== null) {
+                // Mode Édition : Charger les infos de la commande
+                const order = savedFournisseurOrders[index];
+                ['tshirt', 'sweat', 'short'].forEach(vetement => {
+                    const data = order[vetement];
+                    if (data) {
+                        document.getElementById(`f-${vetement}-s`).value = data.s || 0;
+                        document.getElementById(`f-${vetement}-m`).value = data.m || 0;
+                        document.getElementById(`f-${vetement}-l`).value = data.l || 0;
+                        document.getElementById(`f-${vetement}-xl`).value = data.xl || 0;
+                        document.getElementById(`f-${vetement}-prix`).value = data.prixU || '';
+                    }
+                });
+            } else {
+                // Mode Nouvelle Commande : Pré-remplir avec les précommandes
+                // Calcul du bilan des précommandes actuel
+                const summary = {
+                    'T-shirt': { S: 0, M: 0, L: 0, XL: 0 },
+                    'Sweat': { S: 0, M: 0, L: 0, XL: 0 },
+                    'Short': { S: 0, M: 0, L: 0, XL: 0 }
+                };
+                savedPreCommandes.forEach(cmd => {
+                    if (summary[cmd.vetement] && summary[cmd.vetement][cmd.taille] !== undefined) {
+                        summary[cmd.vetement][cmd.taille]++;
+                    }
+                });
+
+                const mapKeys = { 'T-shirt': 'tshirt', 'Sweat': 'sweat', 'Short': 'short' };
+                Object.keys(summary).forEach(vetement => {
+                    const fKey = mapKeys[vetement];
+                    document.getElementById(`f-${fKey}-s`).value = summary[vetement].S || 0;
+                    document.getElementById(`f-${fKey}-m`).value = summary[vetement].M || 0;
+                    document.getElementById(`f-${fKey}-l`).value = summary[vetement].L || 0;
+                    document.getElementById(`f-${fKey}-xl`).value = summary[vetement].XL || 0;
+                    // On ne réinitialise pas le prix unitaire volontairement pour le garder s'il a été saisi précédemment
+                });
+            }
+            updateFournisseurTotal();
+            openModal('modalFournisseur');
+        }
+
+        function saveFournisseurOrder() {
+            const orderData = {};
+            let globalTotal = 0;
+            ['tshirt', 'sweat', 'short'].forEach(vetement => {
+                const s = parseInt(document.getElementById(`f-${vetement}-s`).value) || 0;
+                const m = parseInt(document.getElementById(`f-${vetement}-m`).value) || 0;
+                const l = parseInt(document.getElementById(`f-${vetement}-l`).value) || 0;
+                const xl = parseInt(document.getElementById(`f-${vetement}-xl`).value) || 0;
+                const prixU = parseFloat(document.getElementById(`f-${vetement}-prix`).value) || 0;
+                const qte = s + m + l + xl;
+                const totalItem = qte * prixU;
+                globalTotal += totalItem;
+
+                orderData[vetement] = { s, m, l, xl, prixU, totalItem };
+            });
+            orderData.totalCommande = globalTotal;
+
+            if (currentEditFournisseurIndex !== null) {
+                // Modification
+                orderData.date = savedFournisseurOrders[currentEditFournisseurIndex].date;
+                savedFournisseurOrders[currentEditFournisseurIndex] = orderData;
+            } else {
+                // Nouvelle commande
+                const today = new Date();
+                orderData.date = today.toLocaleDateString('fr-FR');
+                savedFournisseurOrders.push(orderData);
+            }
+
+            localStorage.setItem('sectionSportiveFournisseurOrders', JSON.stringify(savedFournisseurOrders));
+            renderFournisseurOrders();
+            closeModal('modalFournisseur');
+        }
+
+        function renderFournisseurOrders() {
+            const container = document.getElementById('container-vignettes-fournisseur');
+            if (!container) return;
+            container.innerHTML = '';
+
+            savedFournisseurOrders.forEach((order, index) => {
+                const card = document.createElement('div');
+                card.style = "background: var(--beige-bg); padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); width: 220px; text-align: center;";
+
+                card.innerHTML = `
+                    <i class="fas fa-file-invoice-dollar" style="font-size: 2rem; color: var(--primary-purple); margin-bottom: 10px;"></i>
+                    <h4 style="margin-bottom: 5px; color: var(--text-dark);">Commande du ${order.date}</h4>
+                    <p style="font-weight: bold; color: var(--secondary-burgundy); margin-bottom: 15px;">${order.totalCommande}€</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <button onclick="openFournisseurModal(${index})" class="btn" style="padding: 6px 12px; font-size: 0.8rem;" title="Modifier"><i class="fas fa-pen"></i></button>
+                        <button onclick="openConsultFournisseurOrder(${index})" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" title="Consulter le bon de commande"><i class="fas fa-file-alt"></i> Consulter</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openConsultFournisseurOrder(index) {
+            const order = savedFournisseurOrders[index];
+            if (!order) return;
+
+            document.getElementById('consult-date').textContent = order.date;
+            document.getElementById('consult-ref').textContent = String(index + 1).padStart(4, '0');
+
+            const tbody = document.getElementById('consult-table-body');
+            tbody.innerHTML = '';
+
+            ['tshirt', 'sweat', 'short'].forEach(vetement => {
+                const data = order[vetement];
+                if (data && data.totalItem > 0) { // On n'affiche que si le total est supérieur à 0
+                    let taillesDetail = [];
+                    if (data.s > 0) taillesDetail.push(`${data.s}x S`);
+                    if (data.m > 0) taillesDetail.push(`${data.m}x M`);
+                    if (data.l > 0) taillesDetail.push(`${data.l}x L`);
+                    if (data.xl > 0) taillesDetail.push(`${data.xl}x XL`);
+
+                    const qteTotal = data.s + data.m + data.l + data.xl;
+                    const nomVetement = vetement.charAt(0).toUpperCase() + vetement.slice(1);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; color: black;">${nomVetement}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; color: black;">${taillesDetail.join(', ') || '-'}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center; color: black;">${qteTotal}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: right; color: black;">${data.prixU}€</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: right; font-weight: bold; color: black;">${data.totalItem}€</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+
+            document.getElementById('consult-total-general').textContent = order.totalCommande + '€';
+            openModal('modalConsultCommande');
+        }
+
+        function renderPlayerRow(player) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${player.nom.toUpperCase()}</td>
+                <td>${player.prenom}</td>
+                <td>${player.classe}</td>
+                <td style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-mod-profil">Modifier profil</button>
+                    <button class="btn btn-primary btn-fiche-visuelle" style="font-weight: bold;"><i class="fas fa-id-card"></i> Fiche joueur</button>
+                    <button class="btn btn-secondary btn-supprimer" title="Supprimer"><i class="fas fa-trash"></i></button>
+                </td>
+            `;
+
+            document.getElementById('table-' + player.cat).appendChild(tr);
+
+            const modProfilBtn = tr.querySelector('.btn-mod-profil');
+            const ficheVisuelleBtn = tr.querySelector('.btn-fiche-visuelle');
+            const deleteBtn = tr.querySelector('.btn-supprimer');
+
+            modProfilBtn.onclick = function () {
+                editingPlayerIndex = savedPlayers.indexOf(player);
+                document.getElementById('modalPlayerTitle').textContent = "Modifier le joueur";
+                document.getElementById('btnAddPlayer').textContent = "Mettre à jour";
+
+                document.getElementById('p-nom').value = player.nom;
+                document.getElementById('p-prenom').value = player.prenom;
+                document.getElementById('p-classe').value = player.classe;
+                document.getElementById('p-categorie').value = player.cat;
+
+                document.getElementById('t-main').value = player.ficheTechnique.mainForte || 'Droite';
+                document.getElementById('t-poste').value = player.ficheTechnique.poste || '1';
+                document.getElementById('t-style').value = player.ficheTechnique.style || '';
+                document.getElementById('t-dribble').value = player.ficheTechnique.dribble || '';
+                document.getElementById('t-passes').value = player.ficheTechnique.passes || '';
+                document.getElementById('t-tir2').value = player.ficheTechnique.tir2 || '';
+                document.getElementById('t-tir3').value = player.ficheTechnique.tir3 || '';
+                document.getElementById('t-tirlf').value = player.ficheTechnique.tirlf || '';
+                document.getElementById('t-defp').value = player.ficheTechnique.defp || '';
+                document.getElementById('t-defnp').value = player.ficheTechnique.defnp || '';
+                document.getElementById('t-qi').value = player.ficheTechnique.qi || '';
+                document.getElementById('t-jnp').value = player.ficheTechnique.jnp || '';
+                document.getElementById('t-rbd').value = player.ficheTechnique.rbd || '';
+                document.getElementById('t-rbo').value = player.ficheTechnique.rbo || '';
+                document.getElementById('t-fin').value = player.ficheTechnique.fin || '';
+
+                openModal('modalPlayer');
+            };
+
+            ficheVisuelleBtn.onclick = function () {
+                openVisualCard(player);
+            };
+
+            deleteBtn.onclick = function () {
+                if (confirm(`Voulez-vous vraiment supprimer le joueur ${player.nom.toUpperCase()} ${player.prenom} ?`)) {
+                    savedPlayers = savedPlayers.filter(p => p !== player);
+                    localStorage.setItem('sectionSportivePlayers', JSON.stringify(savedPlayers));
+                    tr.remove();
+                }
+            };
+        }
+
+        // Ajout d'un nouveau joueur
+        function addPlayer() {
+            const nom = document.getElementById('p-nom').value;
+            const prenom = document.getElementById('p-prenom').value;
+            const classe = document.getElementById('p-classe').value;
+            const cat = document.getElementById('p-categorie').value;
+
+            if (!nom || !prenom) {
+                alert('Veuillez remplir le nom et le prénom');
+                return;
+            }
+
+            // Lecture des attributs techniques
+            const ficheTechnique = {
+                mainForte: document.getElementById('t-main').value,
+                poste: document.getElementById('t-poste').value,
+                style: document.getElementById('t-style').value,
+                dribble: document.getElementById('t-dribble').value,
+                passes: document.getElementById('t-passes').value,
+                tir2: document.getElementById('t-tir2').value,
+                tir3: document.getElementById('t-tir3').value,
+                tirlf: document.getElementById('t-tirlf').value,
+                defp: document.getElementById('t-defp').value,
+                defnp: document.getElementById('t-defnp').value,
+                qi: document.getElementById('t-qi').value,
+                jnp: document.getElementById('t-jnp').value,
+                rbd: document.getElementById('t-rbd').value,
+                rbo: document.getElementById('t-rbo').value,
+                fin: document.getElementById('t-fin').value
+            };
+
+            const player = { nom, prenom, classe, cat, ficheTechnique };
+
+            if (editingPlayerIndex !== -1) {
+                if (savedPlayers[editingPlayerIndex].photo) {
+                    player.photo = savedPlayers[editingPlayerIndex].photo;
+                }
+                savedPlayers[editingPlayerIndex] = player;
+            } else {
+                savedPlayers.push(player);
+            }
+
+            localStorage.setItem('sectionSportivePlayers', JSON.stringify(savedPlayers));
+
+            refreshTables();
+            cancelPlayerModal();
+        }
+
+        function cancelPlayerModal() {
+            editingPlayerIndex = -1;
+            document.getElementById('modalPlayerTitle').textContent = "Nouveau Joueur";
+            document.getElementById('btnAddPlayer').textContent = "+ Ajouter";
+            document.getElementById('p-nom').value = '';
+            document.getElementById('p-prenom').value = '';
+            document.getElementById('p-classe').value = '';
+            cancelFicheTechnique();
+            closeModal('modalPlayer');
+        }
+
+
+        function cancelFicheTechnique() {
+            document.getElementById('t-main').value = 'Droite';
+            document.getElementById('t-poste').value = '1';
+            ['t-style', 't-dribble', 't-passes', 't-tir2', 't-tir3', 't-tirlf', 't-defp', 't-defnp', 't-qi', 't-jnp', 't-rbd', 't-rbo', 't-fin'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            closeModal('modalFicheTechnique');
+        }
+        let currentPlayerForCard = null;
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file || !currentPlayerForCard) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const dataUrl = e.target.result;
+
+                // Mettre à jour l'image dans la carte
+                document.getElementById('c-photo-img').src = dataUrl;
+                document.getElementById('c-photo-img').style.display = 'block';
+                document.getElementById('c-photo-icon').style.display = 'none';
+
+                // Sauvegarder dans le localStorage
+                currentPlayerForCard.photo = dataUrl;
+                localStorage.setItem('sectionSportivePlayers', JSON.stringify(savedPlayers));
+            };
+            reader.readAsDataURL(file);
+            // Réinitialiser l'input pour pouvoir uploader la même image si nécessaire
+            event.target.value = '';
+        }
+
+        function openVisualCard(player) {
+            currentPlayerForCard = player;
+            const fiche = player.ficheTechnique;
+
+            // Mettre à jour le nom
+            document.getElementById('c-nom').textContent = `${player.nom.toUpperCase()} ${player.prenom}`;
+
+            // Mettre à jour la photo
+            const photoImg = document.getElementById('c-photo-img');
+            const photoIcon = document.getElementById('c-photo-icon');
+            if (player.photo) {
+                photoImg.src = player.photo;
+                photoImg.style.display = 'block';
+                photoIcon.style.display = 'none';
+            } else {
+                photoImg.src = '';
+                photoImg.style.display = 'none';
+                photoIcon.style.display = 'block';
+            }
+
+            // Mettre à jour le poste et style
+            const postesStr = { "1": "M", "2": "AR", "3": "AI", "4": "AF", "5": "P" };
+            document.getElementById('c-poste').textContent = postesStr[fiche.poste] || "M";
+            document.getElementById('c-style').textContent = fiche.style || "Non renseigné";
+            document.getElementById('c-main').textContent = fiche.mainForte || "Droite";
+
+            // Mettre à jour les stats
+            document.getElementById('c-qi').textContent = fiche.qi || "--";
+            document.getElementById('c-dribble').textContent = fiche.dribble || "--";
+            document.getElementById('c-passes').textContent = fiche.passes || "--";
+            document.getElementById('c-tir2').textContent = fiche.tir2 || "--";
+            document.getElementById('c-tir3').textContent = fiche.tir3 || "--";
+            document.getElementById('c-tirlf').textContent = fiche.tirlf || "--";
+            document.getElementById('c-fin').textContent = fiche.fin || "--";
+            document.getElementById('c-jnp').textContent = fiche.jnp || "--";
+            document.getElementById('c-defp').textContent = fiche.defp || "--";
+            document.getElementById('c-defnp').textContent = fiche.defnp || "--";
+            document.getElementById('c-rbo').textContent = fiche.rbo || "--";
+            document.getElementById('c-rbd').textContent = fiche.rbd || "--";
+
+            // Calculer un score global (moyenne simple)
+            const stats = [fiche.qi, fiche.dribble, fiche.passes, fiche.tir2, fiche.tir3, fiche.tirlf, fiche.fin, fiche.jnp, fiche.defp, fiche.defnp, fiche.rbo, fiche.rbd]
+                .map(v => parseInt(v));
+            const validStats = stats.filter(v => !isNaN(v));
+            if (validStats.length > 0) {
+                const avg = Math.round(validStats.reduce((a, b) => a + b, 0) / validStats.length);
+                document.getElementById('c-score').textContent = avg;
+            } else {
+                document.getElementById('c-score').textContent = "??";
+            }
+
+            openModal('modalCarteJoueur');
+        }
+    </script>
+
+</body>
+
+</html>
