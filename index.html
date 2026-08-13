@@ -682,12 +682,13 @@
         .btn-mod-profil,
         .btn-fiche-visuelle,
         .btn-supprimer {
-            min-height: 36px;
+            min-height: 32px;
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
-            padding: 6px 12px !important;
-            font-size: 0.85rem !important;
+            padding: 5px 10px !important;
+            font-size: 0.8rem !important;
+            white-space: nowrap;
             border-radius: var(--border-radius-sm);
             cursor: pointer;
             touch-action: manipulation;
@@ -3512,10 +3513,9 @@
                 <td>${player.nom.toUpperCase()}</td>
                 <td>${player.prenom}</td>
                 <td>${player.classe}</td>
-                <td style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                <td style="display: flex; gap: 6px; flex-wrap: nowrap; align-items: center;">
                     <button class="btn btn-mod-profil">Modifier profil</button>
                     <button class="btn btn-primary btn-fiche-visuelle" style="font-weight: bold;"><i class="fas fa-id-card"></i> Fiche joueur</button>
-                    <button class="btn btn-secondary btn-stats-joueur" style="font-weight: bold; background: var(--primary-light); border-color: var(--primary-light); color: white;"><i class="fas fa-chart-bar"></i> Stats matchs</button>
                     <button class="btn btn-secondary btn-supprimer" title="Supprimer"><i class="fas fa-trash"></i></button>
                 </td>
             `;
@@ -3524,7 +3524,6 @@
 
             const modProfilBtn = tr.querySelector('.btn-mod-profil');
             const ficheVisuelleBtn = tr.querySelector('.btn-fiche-visuelle');
-            const statsJoueurBtn = tr.querySelector('.btn-stats-joueur');
             const deleteBtn = tr.querySelector('.btn-supprimer');
 
             modProfilBtn.onclick = function () {
@@ -3557,10 +3556,6 @@
 
             ficheVisuelleBtn.onclick = function () {
                 openVisualCard(player);
-            };
-
-            statsJoueurBtn.onclick = function () {
-                openPlayerStatsHistory(player);
             };
 
             deleteBtn.onclick = async function () {
