@@ -92,13 +92,13 @@
 
         /* --- Navbar (Sidebar) --- */
         .sidebar {
-            width: 280px;
+            width: 300px;
             height: 100vh;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-right: 1px solid var(--glass-border);
-            padding: 30px 20px;
+            padding: 30px 18px;
             display: flex;
             flex-direction: column;
             transition: var(--transition);
@@ -166,12 +166,13 @@
         .nav-links li a {
             display: flex;
             align-items: center;
-            padding: 14px 15px;
+            padding: 12px 14px;
             text-decoration: none;
             color: var(--text-muted);
             border-radius: var(--border-radius-sm);
             transition: var(--transition);
             font-weight: 600;
+            font-size: 0.92rem;
         }
 
         body.home-mode .nav-links li a {
@@ -193,8 +194,8 @@
         }
 
         .nav-links li a i {
-            font-size: 1.2rem;
-            min-width: 35px;
+            font-size: 1.15rem;
+            min-width: 30px;
             text-align: center;
         }
 
@@ -1678,10 +1679,405 @@
             font-weight: 700;
         }
 
-        .btn-beige:hover {
-            background: #EFE8DC;
-            color: #3E2723;
-            border-color: #D8CBBA;
+        /* ==========================================================================
+           --- MODULE ENTRAÎNEMENT COACH (STYLES DE DESIGN SYSTEM & CANVAS TACTIQUE) ---
+           ========================================================================== */
+
+        .coach-tab-nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .coach-tab-btn {
+            background: var(--white-card);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: 12px 22px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .coach-tab-btn:hover {
+            color: var(--primary-purple);
+            background: #F8F5FC;
+            transform: translateY(-2px);
+        }
+
+        .coach-tab-btn.active {
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+            box-shadow: 0 6px 18px rgba(94, 53, 177, 0.25);
+        }
+
+        .coach-tab-content {
+            display: block;
+            animation: fadeInCoachTab 0.35s ease-in-out;
+        }
+
+        .coach-tab-content.hidden {
+            display: none;
+        }
+
+        @keyframes fadeInCoachTab {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Planification Annuelle Cards Grid --- */
+        .planif-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .planif-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .planif-card {
+            background: var(--white-card);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planif-card:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .planif-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1.5px dashed rgba(0, 0, 0, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .planif-period-badge {
+            background: linear-gradient(135deg, var(--secondary-burgundy), #A3155B);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .planif-period-dates {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* --- Éditeur Visuel & Tableau Blanc Canvas --- */
+        .coach-editor-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        @media (max-width: 1100px) {
+            .coach-editor-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tactical-board-card {
+            background: var(--white-card);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .canvas-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #F8F9FA;
+            padding: 12px 16px;
+            border-radius: var(--border-radius-md);
+            border: 1px solid #E9ECEF;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 4px;
+        }
+
+        .tool-btn {
+            background: white;
+            border: 1px solid #CED4DA;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .tool-btn:hover {
+            border-color: var(--primary-purple);
+            color: var(--primary-purple);
+            background: #F3E5F5;
+        }
+
+        .tool-btn.active {
+            background: var(--primary-purple);
+            color: white;
+            border-color: var(--primary-purple);
+            box-shadow: 0 4px 12px rgba(94, 53, 177, 0.2);
+        }
+
+        .color-palette {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+
+        .color-dot.active {
+            transform: scale(1.2);
+            outline: 2px solid var(--primary-purple);
+            outline-offset: 2px;
+        }
+
+        .canvas-container {
+            width: 100%;
+            position: relative;
+            background: #F5F1EA;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            border: 2px solid #E0D9CE;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            /* Crucial pour le drag & drop et tracé tactile sur iPad */
+        }
+
+        #coach-tactical-canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        /* --- Historique des Séances Cards (Style Tailwind Chronologique) --- */
+        .history-section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .history-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .session-card {
+            background: var(--white-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .session-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .session-card-header {
+            padding: 16px 20px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .session-badge-date {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            background: #EFEFEF;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .session-badge-theme {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--secondary-burgundy);
+            background: #FCE4EC;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .session-card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .session-image-thumb {
+            width: 100%;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .session-image-thumb:hover {
+            transform: scale(1.02);
+        }
+
+        .session-desc {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+            background: #F9FAFB;
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
+            border-left: 4px solid var(--primary-purple);
+            white-space: pre-line;
+        }
+
+        .session-bilan-box {
+            margin-top: 10px;
+            background: #FFFDE7;
+            border: 1px solid #FFF59D;
+            padding: 14px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .session-bilan-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #F57F17;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .session-bilan-textarea {
+            width: 100%;
+            border: 1px solid #FFE082;
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+
+        .session-bilan-textarea:focus {
+            border-color: #F57C00;
+            box-shadow: 0 0 0 2px rgba(245, 124, 0, 0.15);
+        }
+
+        .session-card-footer {
+            padding: 12px 20px;
+            background: #FAFAFA;
+            border-top: 1px solid #F0F0F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -1706,7 +2102,10 @@
             <li><a href="#" onclick="navigate('championnat')" id="nav-championnat"><i class="fas fa-trophy"></i>
                     <span>Championnat</span></a></li>
             <li><a href="#" onclick="navigate('entrainement')" id="nav-entrainement"><i class="fas fa-running"></i>
-                    <span>Entraînement</span></a></li>
+                    <span>Suivi entrainement joueur</span></a></li>
+            <li><a href="#" onclick="navigate('entrainement-coach')" id="nav-entrainement-coach"><i
+                        class="fas fa-clipboard-list"></i>
+                    <span>Entraînement Coach</span></a></li>
         </ul>
         <div class="sidebar-footer">
             <button class="btn-sidebar-action btn-save" onclick="exportAppData()" title="Sauvegarder les données">
@@ -2252,6 +2651,606 @@
                     style="font-weight: 700; padding: 14px 28px; font-size: 1.05rem; margin: 0 auto; justify-content: center;">
                     <i class="fas fa-plus-circle"></i> Entrer résultats exercice
                 </button>
+            </div>
+        </section>
+
+        <!-- SECTION ENTRAÎNEMENT COACH -->
+        <section id="entrainement-coach" class="page-section">
+            <div class="header-section">
+                <div>
+                    <h1 style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-clipboard-list" style="color: var(--primary-purple);"></i>
+                        Entraînement Coach
+                    </h1>
+                    <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.95rem;">
+                        Gestion de la planification annuelle et créateur visuel de séances avec tableau blanc tactique
+                    </p>
+                </div>
+            </div>
+
+            <!-- Barre d'Onglets Coach -->
+            <div class="coach-tab-nav">
+                <button class="coach-tab-btn active" id="tab-btn-planification"
+                    onclick="switchCoachTab('planification')">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Planification Annuelle</span>
+                </button>
+                <button class="coach-tab-btn" id="tab-btn-seances" onclick="switchCoachTab('seances')">
+                    <i class="fas fa-basketball-ball"></i>
+                    <span>Création & Historique des Séances</span>
+                </button>
+                <button class="coach-tab-btn" id="tab-btn-systemes" onclick="switchCoachTab('systemes')">
+                    <i class="fas fa-film"></i>
+                    <span>Systèmes Animés</span>
+                </button>
+            </div>
+
+            <!-- CONTENU ONGLET 1 : PLANIFICATION ANNUELLE -->
+            <div class="coach-tab-content" id="coach-tab-planification">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h2 style="font-size: 1.3rem; color: var(--secondary-burgundy); font-weight: 800;">
+                            Planification des 4 Grandes Périodes
+                        </h2>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">
+                            Définissez les objectifs offensifs, défensifs et le travail de tir pour chaque période de la
+                            saison.
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" onclick="savePlanification()">
+                        <i class="fas fa-save"></i> Sauvegarder la planification
+                    </button>
+                </div>
+
+                <div class="planif-grid">
+                    <!-- Période 1 -->
+                    <div class="planif-card">
+                        <div class="planif-card-header">
+                            <span class="planif-period-badge">Période 1</span>
+                            <span class="planif-period-dates"><i class="far fa-calendar-alt"></i> Septembre -
+                                Octobre</span>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-running" style="color: var(--primary-purple);"></i> Objectif
+                                Offensif</label>
+                            <textarea id="planif-p1-offense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs d'attaque pour P1..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-shield-alt" style="color: var(--secondary-burgundy);"></i> Objectif
+                                Défensif</label>
+                            <textarea id="planif-p1-defense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs de défense pour P1..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-bullseye" style="color: #E65100;"></i> Thème Tir</label>
+                            <input type="text" id="planif-p1-tir" class="form-control"
+                                placeholder="Thèmes prioritaires au tir...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label><i class="fas fa-comment-dots" style="color: #0284C7;"></i> Notes & Commentaires
+                                libres</label>
+                            <textarea id="planif-p1-notes" class="form-control" rows="3"
+                                placeholder="Notes complémentaires, travail physique, mental, consignes spécifiques..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Période 2 -->
+                    <div class="planif-card">
+                        <div class="planif-card-header">
+                            <span class="planif-period-badge">Période 2</span>
+                            <span class="planif-period-dates"><i class="far fa-calendar-alt"></i> Novembre -
+                                Décembre</span>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-running" style="color: var(--primary-purple);"></i> Objectif
+                                Offensif</label>
+                            <textarea id="planif-p2-offense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs d'attaque pour P2..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-shield-alt" style="color: var(--secondary-burgundy);"></i> Objectif
+                                Défensif</label>
+                            <textarea id="planif-p2-defense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs de défense pour P2..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-bullseye" style="color: #E65100;"></i> Thème Tir</label>
+                            <input type="text" id="planif-p2-tir" class="form-control"
+                                placeholder="Thèmes prioritaires au tir...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label><i class="fas fa-comment-dots" style="color: #0284C7;"></i> Notes & Commentaires
+                                libres</label>
+                            <textarea id="planif-p2-notes" class="form-control" rows="3"
+                                placeholder="Notes complémentaires, travail physique, mental, consignes spécifiques..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Période 3 -->
+                    <div class="planif-card">
+                        <div class="planif-card-header">
+                            <span class="planif-period-badge">Période 3</span>
+                            <span class="planif-period-dates"><i class="far fa-calendar-alt"></i> Janvier - Mars</span>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-running" style="color: var(--primary-purple);"></i> Objectif
+                                Offensif</label>
+                            <textarea id="planif-p3-offense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs d'attaque pour P3..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-shield-alt" style="color: var(--secondary-burgundy);"></i> Objectif
+                                Défensif</label>
+                            <textarea id="planif-p3-defense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs de défense pour P3..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-bullseye" style="color: #E65100;"></i> Thème Tir</label>
+                            <input type="text" id="planif-p3-tir" class="form-control"
+                                placeholder="Thèmes prioritaires au tir...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label><i class="fas fa-comment-dots" style="color: #0284C7;"></i> Notes & Commentaires
+                                libres</label>
+                            <textarea id="planif-p3-notes" class="form-control" rows="3"
+                                placeholder="Notes complémentaires, travail physique, mental, consignes spécifiques..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Période 4 -->
+                    <div class="planif-card">
+                        <div class="planif-card-header">
+                            <span class="planif-period-badge">Période 4</span>
+                            <span class="planif-period-dates"><i class="far fa-calendar-alt"></i> Avril - Juin</span>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-running" style="color: var(--primary-purple);"></i> Objectif
+                                Offensif</label>
+                            <textarea id="planif-p4-offense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs d'attaque pour P4..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-shield-alt" style="color: var(--secondary-burgundy);"></i> Objectif
+                                Défensif</label>
+                            <textarea id="planif-p4-defense" class="form-control" rows="3"
+                                placeholder="Saisir les objectifs de défense pour P4..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-bullseye" style="color: #E65100;"></i> Thème Tir</label>
+                            <input type="text" id="planif-p4-tir" class="form-control"
+                                placeholder="Thèmes prioritaires au tir...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label><i class="fas fa-comment-dots" style="color: #0284C7;"></i> Notes & Commentaires
+                                libres</label>
+                            <textarea id="planif-p4-notes" class="form-control" rows="3"
+                                placeholder="Notes complémentaires, travail physique, mental, consignes spécifiques..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; text-align: right;">
+                    <button class="btn btn-primary btn-lg" onclick="savePlanification()">
+                        <i class="fas fa-save"></i> Sauvegarder la planification
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENU ONGLET 2 : SÉANCES MULTI-EXERCICES & HISTORIQUE -->
+            <div class="coach-tab-content hidden" id="coach-tab-seances">
+
+                <!-- ENTÊTE DE LA SÉANCE -->
+                <div class="training-card" style="margin-bottom: 25px;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h2
+                                style="font-size: 1.25rem; font-weight: 800; color: var(--secondary-burgundy); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-calendar-plus" style="color: var(--primary-purple);"></i>
+                                Création d'une Séance d'Entraînement
+                            </h2>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+                                Définissez la date et le titre global, puis ajoutez successivement vos différents
+                                exercices (Échauffement, Situations, etc.).
+                            </p>
+                        </div>
+                        <button class="btn btn-primary btn-lg" id="btn-save-full-session" onclick="saveCoachSession()"
+                            style="box-shadow: 0 4px 15px rgba(94, 53, 177, 0.3);">
+                            <i class="fas fa-save"></i> Sauvegarder la séance entière (<span
+                                id="draft-count-badge">0</span> exercice(s))
+                        </button>
+                    </div>
+
+                    <div class="form-group-row" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="coach-session-date"><i class="far fa-calendar-alt"></i> Date de la
+                                séance</label>
+                            <input type="date" id="coach-session-date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="coach-session-title"><i class="fas fa-heading"></i> Titre / Thème général de la
+                                séance</label>
+                            <input type="text" id="coach-session-title" class="form-control"
+                                placeholder="ex: Séance du 15 Août - Attaque placée & Transition">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORMULAIRE DE CRÉATION D'UN EXERCICE (GAUCHE FORM / DROITE CANVAS) -->
+                <div class="coach-editor-layout">
+
+                    <!-- Formulaire de l'exercice en cours -->
+                    <div class="training-card">
+                        <div class="card-header-title">
+                            <i class="fas fa-plus-circle" style="font-size: 1.3rem; color: var(--primary-purple);"></i>
+                            <h3>Ajouter un Exercice à la Séance</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="coach-ex-title"><i class="fas fa-tasks"></i> Type / Nom de l'exercice</label>
+                            <input type="text" id="coach-ex-title" class="form-control"
+                                placeholder="ex: Échauffement, Situation 1, 3v3 Continu..." list="ex-title-suggestions">
+                            <datalist id="ex-title-suggestions">
+                                <option value="Échauffement - Dribble & Passe">
+                                <option value="Situation d'apprentissage 1">
+                                <option value="Situation d'apprentissage 2 (Évolutive)">
+                                <option value="Situation de jeu (3v3 / 5v5)">
+                                <option value="Retour au calme / Lancer-franc">
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-map"></i> Choix du terrain support</label>
+                            <div style="display: flex; gap: 10px; margin-top: 6px;">
+                                <button type="button" class="tool-btn active" id="btn-court-demi"
+                                    onclick="setCoachCourtType('demi')"
+                                    style="flex: 1; justify-content: center; padding: 10px;">
+                                    <i class="fas fa-chess-board"></i> Demi-Terrain
+                                </button>
+                                <button type="button" class="tool-btn" id="btn-court-tout"
+                                    onclick="setCoachCourtType('tout')"
+                                    style="flex: 1; justify-content: center; padding: 10px;">
+                                    <i class="fas fa-expand-arrows-alt"></i> Tout-Terrain
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="coach-ex-desc"><i class="fas fa-align-left"></i> Consignes & Description de cet
+                                exercice</label>
+                            <textarea id="coach-ex-desc" class="form-control" rows="5"
+                                placeholder="Décrivez le déroulement, le nombre de joueurs, les rotations, les règles d'apprentissage..."></textarea>
+                        </div>
+
+                        <button class="btn btn-secondary btn-lg"
+                            style="width: 100%; justify-content: center; margin-top: 10px;"
+                            onclick="addExerciseToDraft()">
+                            <i class="fas fa-plus-circle"></i> Ajouter cet exercice à la séance
+                        </button>
+                    </div>
+
+                    <!-- Tableau Blanc Tactique (Canvas) -->
+                    <div class="tactical-board-card">
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <h3
+                                style="font-size: 1.25rem; font-weight: 800; color: var(--secondary-burgundy); display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-chalkboard"></i> Schéma Tactique (<span
+                                    id="canvas-court-type-label">Demi-Terrain</span>)
+                            </h3>
+                            <span
+                                style="font-size: 0.8rem; color: var(--text-muted); background: #F5F5F5; padding: 6px 12px; border-radius: 10px; font-weight: 600;">
+                                <i class="fas fa-hand-pointer"></i> Glissez les pions & dessinez avec le doigt/souris
+                            </span>
+                        </div>
+
+                        <!-- ZONE DU TERRAIN CANVAS : GRAND FORMAT DIRECTEMENT SOUS LE TITRE -->
+                        <div class="canvas-container" style="margin-top: 10px;">
+                            <canvas id="coach-tactical-canvas" width="960" height="640"></canvas>
+                        </div>
+
+                        <!-- BARRE D'OUTILS DU CANVAS (SOUS LE TERRAIN) -->
+                        <div class="canvas-toolbar">
+                            <!-- Outils d'Ajout Manuel de Pions -->
+                            <div class="toolbar-group">
+                                <span class="toolbar-label">Ajouter :</span>
+                                <button type="button" class="tool-btn" onclick="addCoachToken('attacker')"
+                                    style="background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; font-weight: 700;"
+                                    title="Ajouter un pion attaquant rouge">
+                                    <i class="fas fa-plus-circle"></i> 🔴 Attaquant
+                                </button>
+                                <button type="button" class="tool-btn" onclick="addCoachToken('defender')"
+                                    style="background: #DBEAFE; color: #1E40AF; border-color: #93C5FD; font-weight: 700;"
+                                    title="Ajouter un pion défenseur bleu">
+                                    <i class="fas fa-plus-circle"></i> 🔵 Défenseur
+                                </button>
+                                <button type="button" class="tool-btn" onclick="addCoachToken('ball')"
+                                    style="background: #FFEDD5; color: #9A3412; border-color: #FDBA74; font-weight: 700;"
+                                    title="Ajouter un ballon de basketball">
+                                    <i class="fas fa-plus-circle"></i> 🏀 Ballon
+                                </button>
+                                <button type="button" class="tool-btn" onclick="clearCoachTokens()"
+                                    style="color: #DC2626; border-color: #FCA5A5;"
+                                    title="Vider tous les pions du terrain">
+                                    <i class="fas fa-trash-alt"></i> Vider terrain
+                                </button>
+                            </div>
+
+                            <!-- Outils de Mode Tracé -->
+                            <div class="toolbar-group">
+                                <span class="toolbar-label">Outil :</span>
+                                <button type="button" class="tool-btn active" id="tool-btn-select"
+                                    onclick="setCoachTool('select')" title="Déplacer les pions et le ballon">
+                                    <i class="fas fa-hand-paper"></i> Pion
+                                </button>
+                                <button type="button" class="tool-btn" id="tool-btn-straight"
+                                    onclick="setCoachTool('straight')" title="Trait droit avec pointeur (Passe)">
+                                    <i class="fas fa-long-arrow-alt-right"></i> Passe
+                                </button>
+                                <button type="button" class="tool-btn" id="tool-btn-dashed"
+                                    onclick="setCoachTool('dashed')"
+                                    title="Trait pointillé avec pointeur (Course sans ballon)">
+                                    <i class="fas fa-ellipsis-h"></i> Course
+                                </button>
+                                <button type="button" class="tool-btn" id="tool-btn-zigzag"
+                                    onclick="setCoachTool('zigzag')" title="Trait en zigzag avec pointeur (Dribble)">
+                                    <i class="fas fa-bolt"></i> Dribble
+                                </button>
+                            </div>
+
+                            <!-- Palette de Couleurs & Actions -->
+                            <div class="toolbar-group">
+                                <span class="toolbar-label">Couleur :</span>
+                                <div class="color-palette">
+                                    <div class="color-dot active" style="background-color: #1E293B;"
+                                        onclick="setCoachColor('#1E293B', this)" title="Noir"></div>
+                                    <div class="color-dot" style="background-color: #EF4444;"
+                                        onclick="setCoachColor('#EF4444', this)" title="Rouge"></div>
+                                    <div class="color-dot" style="background-color: #3B82F6;"
+                                        onclick="setCoachColor('#3B82F6', this)" title="Bleu"></div>
+                                    <div class="color-dot" style="background-color: #10B981;"
+                                        onclick="setCoachColor('#10B981', this)" title="Vert"></div>
+                                </div>
+                                <div style="display: flex; gap: 6px; margin-left: 10px;">
+                                    <button type="button" class="tool-btn" onclick="clearCoachDrawings()"
+                                        title="Effacer le tracé sans toucher aux pions">
+                                        <i class="fas fa-eraser" style="color: #EF4444;"></i> Effacer tracé
+                                    </button>
+                                    <button type="button" class="tool-btn" onclick="undoCoachDrawing()"
+                                        title="Annuler le dernier trait">
+                                        <i class="fas fa-undo"></i> Annuler
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENEUR DES EXERCICES EN ATTENTE DANS LA SÉANCE EN COURS -->
+                <div style="margin-top: 30px;" id="coach-draft-section">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                        <h3
+                            style="font-size: 1.15rem; font-weight: 800; color: var(--secondary-burgundy); display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-list-ol" style="color: var(--primary-purple);"></i>
+                            Exercices inclus dans cette séance (<span id="draft-list-count">0</span>)
+                        </h3>
+                    </div>
+                    <div class="history-grid" id="coach-draft-container">
+                        <!-- Liste des exercices ajoutés au brouillon -->
+                    </div>
+                </div>
+
+                <!-- SECTION HISTORIQUE DES SÉANCES ENREGISTRÉES -->
+                <div class="history-section-title">
+                    <div>
+                        <h2
+                            style="font-size: 1.3rem; color: var(--secondary-burgundy); font-weight: 800; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-history" style="color: var(--primary-purple);"></i>
+                            Historique des Séances Enregistrées
+                        </h2>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">
+                            Retrouvez vos fiches de séances complètes avec leurs multiples exercices et saisissez votre
+                            bilan post-séance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="history-grid" id="coach-history-container">
+                    <!-- Les cartes d'historique de séances seront injectées dynamiquement ici via JS -->
+                </div>
+            </div> <!-- FIN ONGLET 2 : SÉANCES MULTI-EXERCICES & HISTORIQUE -->
+
+            <!-- CONTENU ONGLET 3 : SYSTÈMES ANIMÉS -->
+            <div class="coach-tab-content hidden" id="coach-tab-systemes">
+
+                <!-- ENTÊTE & CRÉATEUR DE SYSTÈME ANIMÉ -->
+                <div class="coach-editor-layout">
+                    <!-- Formulaire du Système -->
+                    <div class="training-card">
+                        <div class="card-header-title">
+                            <i class="fas fa-video" style="font-size: 1.3rem; color: #DC2626;"></i>
+                            <h3>Créer un Système Animé</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sys-name"><i class="fas fa-heading"></i> Nom du système</label>
+                            <input type="text" id="sys-name" class="form-control"
+                                placeholder="ex: Horn 1 - Pick & Roll Top, BLOB Stack 4...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sys-category"><i class="fas fa-tags"></i> Catégorie</label>
+                            <select id="sys-category" class="form-control">
+                                <option value="Attaque placée (Demi-terrain)">Attaque placée (Demi-terrain)</option>
+                                <option value="Jeu de transition / Contre-attaque">Jeu de transition / Contre-attaque
+                                </option>
+                                <option value="Remise en jeu fond (BLOB)">Remise en jeu fond (BLOB)</option>
+                                <option value="Remise en jeu touche (SLOB)">Remise en jeu touche (SLOB)</option>
+                                <option value="Système Spécial (Fin de quart-temps)">Système Spécial (Fin de
+                                    quart-temps)</option>
+                                <option value="Défense & Pressing">Défense & Pressing</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-map"></i> Choix du terrain support</label>
+                            <div style="display: flex; gap: 10px; margin-top: 6px;">
+                                <button type="button" class="tool-btn active" id="btn-sys-court-demi"
+                                    onclick="setSysCourtType('demi')"
+                                    style="flex: 1; justify-content: center; padding: 10px;">
+                                    <i class="fas fa-chess-board"></i> Demi-Terrain
+                                </button>
+                                <button type="button" class="tool-btn" id="btn-sys-court-tout"
+                                    onclick="setSysCourtType('tout')"
+                                    style="flex: 1; justify-content: center; padding: 10px;">
+                                    <i class="fas fa-expand-arrows-alt"></i> Tout-Terrain
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sys-desc"><i class="fas fa-align-left"></i> Description & Consignes du
+                                système</label>
+                            <textarea id="sys-desc" class="form-control" rows="4"
+                                placeholder="Décrivez les signaux de départ, les choix de passes, les lectures de défense..."></textarea>
+                        </div>
+
+                        <!-- BOUTONS D'ENREGISTREMENT ET DE SAUVEGARDE DU SYSTÈME -->
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button type="button" class="btn btn-secondary" id="btn-sys-rec-start"
+                                    onclick="startSystemRecording()"
+                                    style="flex: 1; justify-content: center; background: #DC2626; border-color: #DC2626; color: white;">
+                                    <i class="fas fa-circle"></i> 🔴 Enregistrer
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="btn-sys-rec-stop"
+                                    onclick="stopSystemRecording()"
+                                    style="flex: 1; justify-content: center; display: none; background: #475569; border-color: #475569; color: white;">
+                                    <i class="fas fa-stop"></i> ⏹️ Arrêter
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="btn-sys-play-test"
+                                    onclick="testSystemAnimation()" style="flex: 1; justify-content: center;" disabled>
+                                    <i class="fas fa-play"></i> ▶️ Tester
+                                </button>
+                            </div>
+
+                            <button type="button" class="btn btn-primary btn-lg" onclick="saveAnimatedSystem()"
+                                style="width: 100%; justify-content: center; box-shadow: 0 4px 12px rgba(94, 53, 177, 0.3);">
+                                <i class="fas fa-save"></i> Sauvegarder le système animé
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tableau Blanc Tactique Animé (Canvas) -->
+                    <div class="tactical-board-card">
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <h3
+                                style="font-size: 1.25rem; font-weight: 800; color: var(--secondary-burgundy); display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-film"></i> Terrain & Mouvements (<span
+                                    id="sys-court-type-label">Demi-Terrain</span>)
+                            </h3>
+                            <div id="sys-rec-badge"
+                                style="display: none; align-items: center; gap: 6px; background: #FEE2E2; color: #991B1B; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.85rem; border: 1px solid #FCA5A5;">
+                                <span
+                                    style="width: 10px; height: 10px; background: #DC2626; border-radius: 50%; display: inline-block;"></span>
+                                REC (<span id="sys-rec-timer">0s</span>)
+                            </div>
+                        </div>
+
+                        <!-- ZONE DU TERRAIN CANVAS ANIMÉ -->
+                        <div class="canvas-container" style="margin-top: 10px;">
+                            <canvas id="sys-tactical-canvas" width="960" height="640"></canvas>
+                        </div>
+
+                        <!-- BARRE D'OUTILS -->
+                        <div class="canvas-toolbar">
+                            <!-- Pions -->
+                            <div class="toolbar-group">
+                                <span class="toolbar-label">Pions :</span>
+                                <button type="button" class="tool-btn" onclick="addSysToken('attacker')"
+                                    style="background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; font-weight: 700;">
+                                    <i class="fas fa-plus-circle"></i> 🔴 Attaquant
+                                </button>
+                                <button type="button" class="tool-btn" onclick="addSysToken('defender')"
+                                    style="background: #DBEAFE; color: #1E40AF; border-color: #93C5FD; font-weight: 700;">
+                                    <i class="fas fa-plus-circle"></i> 🔵 Défenseur
+                                </button>
+                                <button type="button" class="tool-btn" onclick="addSysToken('ball')"
+                                    style="background: #FFEDD5; color: #9A3412; border-color: #FDBA74; font-weight: 700;">
+                                    <i class="fas fa-plus-circle"></i> 🏀 Ballon
+                                </button>
+                                <button type="button" class="tool-btn" onclick="clearSysTokens()"
+                                    style="color: #DC2626; border-color: #FCA5A5;">
+                                    <i class="fas fa-trash-alt"></i> Vider pions
+                                </button>
+                            </div>
+
+                            <!-- Tracés -->
+                            <div class="toolbar-group">
+                                <span class="toolbar-label">Tracé :</span>
+                                <button type="button" class="tool-btn active" id="sys-tool-select"
+                                    onclick="setSysTool('select')">
+                                    <i class="fas fa-hand-paper"></i> Pion
+                                </button>
+                                <button type="button" class="tool-btn" id="sys-tool-straight"
+                                    onclick="setSysTool('straight')">
+                                    <i class="fas fa-long-arrow-alt-right"></i> Passe
+                                </button>
+                                <button type="button" class="tool-btn" id="sys-tool-dashed"
+                                    onclick="setSysTool('dashed')">
+                                    <i class="fas fa-ellipsis-h"></i> Course
+                                </button>
+                                <button type="button" class="tool-btn" id="sys-tool-zigzag"
+                                    onclick="setSysTool('zigzag')">
+                                    <i class="fas fa-bolt"></i> Dribble
+                                </button>
+                            </div>
+
+                            <!-- Couleurs & Effacer -->
+                            <div class="toolbar-group">
+                                <div class="color-palette">
+                                    <div class="color-dot active" style="background-color: #1E293B;"
+                                        onclick="setSysColor('#1E293B', this)"></div>
+                                    <div class="color-dot" style="background-color: #EF4444;"
+                                        onclick="setSysColor('#EF4444', this)"></div>
+                                    <div class="color-dot" style="background-color: #3B82F6;"
+                                        onclick="setSysColor('#3B82F6', this)"></div>
+                                    <div class="color-dot" style="background-color: #10B981;"
+                                        onclick="setSysColor('#10B981', this)"></div>
+                                </div>
+                                <button type="button" class="tool-btn" onclick="clearSysDrawings()"
+                                    style="margin-left: 10px;">
+                                    <i class="fas fa-eraser" style="color: #EF4444;"></i> Effacer tracé
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BIBLIOTHÈQUE DES SYSTÈMES ANIMÉS ENREGISTRÉS -->
+                <div class="history-section-title">
+                    <div>
+                        <h2
+                            style="font-size: 1.3rem; color: var(--secondary-burgundy); font-weight: 800; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-photo-video" style="color: var(--primary-purple);"></i>
+                            Bibliothèque des Systèmes Animés
+                        </h2>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">
+                            Consultez vos systèmes enregistrés et visionnez les animations de mouvements en direct avec
+                            contrôle de vitesse.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="history-grid" id="coach-systems-container">
+                    <!-- Les cartes des systèmes animés seront injectées dynamiquement ici -->
+                </div>
+            </div>
             </div>
         </section>
 
@@ -3036,6 +4035,9 @@
             if (pageId === 'entrainement') {
                 renderPlayerTrainingSheet();
             }
+            if (pageId === 'entrainement-coach') {
+                initCoachModule();
+            }
             if (pageId === 'fiches') {
                 showCategorySelection();
             }
@@ -3161,6 +4163,9 @@
             refreshMatchesTable();
             if (typeof initTrainingTab === 'function') {
                 initTrainingTab();
+            }
+            if (typeof initCoachModule === 'function') {
+                initCoachModule();
             }
         });
 
@@ -4528,6 +5533,1660 @@
             }
         }
 
+        // ==========================================================================
+        // --- MODULE ENTRAÎNEMENT COACH : LOGIQUE JAVASCRIPT COMPLÈTE ---
+        // ==========================================================================
+
+        // Preload des vraies images de terrain de basket
+        const coachCourtImages = {
+            demi: new Image(),
+            tout: new Image()
+        };
+        coachCourtImages.demi.src = 'image/demi terrain.png';
+        coachCourtImages.tout.src = 'image/tout terrain.png';
+
+        coachCourtImages.demi.onload = () => { if (coachCourtType === 'demi') renderTacticalBoard(); };
+        coachCourtImages.tout.onload = () => { if (coachCourtType === 'tout') renderTacticalBoard(); };
+
+        let coachCourtType = 'demi'; // 'demi' ou 'tout'
+        let currentDraftExercises = []; // Liste des exercices de la séance en cours d'élaboration
+
+        // --- GESTION DES ONGLETS COACH ---
+        function switchCoachTab(tabName) {
+            const btnPlanif = document.getElementById('tab-btn-planification');
+            const btnSeances = document.getElementById('tab-btn-seances');
+            const btnSystemes = document.getElementById('tab-btn-systemes');
+
+            const contentPlanif = document.getElementById('coach-tab-planification');
+            const contentSeances = document.getElementById('coach-tab-seances');
+            const contentSystemes = document.getElementById('coach-tab-systemes');
+
+            if (contentPlanif) contentPlanif.classList.add('hidden');
+            if (contentSeances) contentSeances.classList.add('hidden');
+            if (contentSystemes) contentSystemes.classList.add('hidden');
+
+            if (btnPlanif) btnPlanif.classList.remove('active');
+            if (btnSeances) btnSeances.classList.remove('active');
+            if (btnSystemes) btnSystemes.classList.remove('active');
+
+            if (tabName === 'planification') {
+                if (btnPlanif) btnPlanif.classList.add('active');
+                if (contentPlanif) contentPlanif.classList.remove('hidden');
+            } else if (tabName === 'seances') {
+                if (btnSeances) btnSeances.classList.add('active');
+                if (contentSeances) contentSeances.classList.remove('hidden');
+                setTimeout(() => {
+                    initCoachCanvas();
+                    renderTacticalBoard();
+                }, 50);
+            } else if (tabName === 'systemes') {
+                if (btnSystemes) btnSystemes.classList.add('active');
+                if (contentSystemes) contentSystemes.classList.remove('hidden');
+                setTimeout(() => {
+                    initSysCanvas();
+                    renderSysBoard();
+                    renderCoachSystems();
+                }, 50);
+            }
+        }
+
+        function initCoachModule() {
+            const dateInput = document.getElementById('coach-session-date');
+            if (dateInput && !dateInput.value) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+
+            loadPlanification();
+            initCoachCanvas();
+            renderDraftExercisesList();
+            renderCoachHistory();
+
+            initSysCanvas();
+            renderCoachSystems();
+        }
+
+        // ==========================================================================
+        // --- 1. MODULE PLANIFICATION ANNUELLE (localStorage: 'planif_annuelle') ---
+        // ==========================================================================
+        function savePlanification() {
+            const planifData = {
+                p1: {
+                    offense: document.getElementById('planif-p1-offense')?.value || '',
+                    defense: document.getElementById('planif-p1-defense')?.value || '',
+                    tir: document.getElementById('planif-p1-tir')?.value || '',
+                    notes: document.getElementById('planif-p1-notes')?.value || ''
+                },
+                p2: {
+                    offense: document.getElementById('planif-p2-offense')?.value || '',
+                    defense: document.getElementById('planif-p2-defense')?.value || '',
+                    tir: document.getElementById('planif-p2-tir')?.value || '',
+                    notes: document.getElementById('planif-p2-notes')?.value || ''
+                },
+                p3: {
+                    offense: document.getElementById('planif-p3-offense')?.value || '',
+                    defense: document.getElementById('planif-p3-defense')?.value || '',
+                    tir: document.getElementById('planif-p3-tir')?.value || '',
+                    notes: document.getElementById('planif-p3-notes')?.value || ''
+                },
+                p4: {
+                    offense: document.getElementById('planif-p4-offense')?.value || '',
+                    defense: document.getElementById('planif-p4-defense')?.value || '',
+                    tir: document.getElementById('planif-p4-tir')?.value || '',
+                    notes: document.getElementById('planif-p4-notes')?.value || ''
+                }
+            };
+
+            localStorage.setItem('planif_annuelle', JSON.stringify(planifData));
+            showCustomAlert("La planification annuelle a été sauvegardée avec succès !", "Planification Enregistrée", "success");
+        }
+
+        function loadPlanification() {
+            const raw = localStorage.getItem('planif_annuelle');
+            if (!raw) return;
+            try {
+                const data = JSON.parse(raw);
+                if (data.p1) {
+                    if (document.getElementById('planif-p1-offense')) document.getElementById('planif-p1-offense').value = data.p1.offense || '';
+                    if (document.getElementById('planif-p1-defense')) document.getElementById('planif-p1-defense').value = data.p1.defense || '';
+                    if (document.getElementById('planif-p1-tir')) document.getElementById('planif-p1-tir').value = data.p1.tir || '';
+                    if (document.getElementById('planif-p1-notes')) document.getElementById('planif-p1-notes').value = data.p1.notes || '';
+                }
+                if (data.p2) {
+                    if (document.getElementById('planif-p2-offense')) document.getElementById('planif-p2-offense').value = data.p2.offense || '';
+                    if (document.getElementById('planif-p2-defense')) document.getElementById('planif-p2-defense').value = data.p2.defense || '';
+                    if (document.getElementById('planif-p2-tir')) document.getElementById('planif-p2-tir').value = data.p2.tir || '';
+                    if (document.getElementById('planif-p2-notes')) document.getElementById('planif-p2-notes').value = data.p2.notes || '';
+                }
+                if (data.p3) {
+                    if (document.getElementById('planif-p3-offense')) document.getElementById('planif-p3-offense').value = data.p3.offense || '';
+                    if (document.getElementById('planif-p3-defense')) document.getElementById('planif-p3-defense').value = data.p3.defense || '';
+                    if (document.getElementById('planif-p3-tir')) document.getElementById('planif-p3-tir').value = data.p3.tir || '';
+                    if (document.getElementById('planif-p3-notes')) document.getElementById('planif-p3-notes').value = data.p3.notes || '';
+                }
+                if (data.p4) {
+                    if (document.getElementById('planif-p4-offense')) document.getElementById('planif-p4-offense').value = data.p4.offense || '';
+                    if (document.getElementById('planif-p4-defense')) document.getElementById('planif-p4-defense').value = data.p4.defense || '';
+                    if (document.getElementById('planif-p4-tir')) document.getElementById('planif-p4-tir').value = data.p4.tir || '';
+                    if (document.getElementById('planif-p4-notes')) document.getElementById('planif-p4-notes').value = data.p4.notes || '';
+                }
+            } catch (e) {
+                console.error("Erreur chargement planif_annuelle", e);
+            }
+        }
+
+
+        // ==========================================================================
+        // --- 2. TABLEAU BLANC TACTIQUE (CANVAS, IMAGES TERRAIN VRAIES & TOUCH) ---
+        // ==========================================================================
+
+        let coachTool = 'select'; // 'select', 'straight', 'dashed', 'zigzag'
+        let coachColor = '#1E293B'; // Noir par défaut
+        let coachDrawings = [];
+        let coachTokens = []; // Terrain vide par défaut !
+        let activeCoachToken = null;
+        let activeCoachDrawing = null;
+        let isCoachInteracting = false;
+        let coachCanvasInitialized = false;
+
+        function setCoachCourtType(type) {
+            coachCourtType = type;
+            const btnDemi = document.getElementById('btn-court-demi');
+            const btnTout = document.getElementById('btn-court-tout');
+            const labelEl = document.getElementById('canvas-court-type-label');
+
+            if (type === 'demi') {
+                if (btnDemi) btnDemi.classList.add('active');
+                if (btnTout) btnTout.classList.remove('active');
+                if (labelEl) labelEl.textContent = 'Demi-Terrain';
+            } else {
+                if (btnTout) btnTout.classList.add('active');
+                if (btnDemi) btnDemi.classList.remove('active');
+                if (labelEl) labelEl.textContent = 'Tout-Terrain';
+            }
+
+            renderTacticalBoard();
+        }
+
+        /**
+         * Ajoute manuellement un pion sur le terrain (Attaquant rouge, Défenseur bleu ou Ballon)
+         */
+        function addCoachToken(type) {
+            const canvas = document.getElementById('coach-tactical-canvas');
+            const width = canvas ? canvas.width : 750;
+            const height = canvas ? canvas.height : 520;
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Décalage aléatoire pour éviter que les nouveaux pions se superposent exactement au centre
+            const offsetX = (Math.random() * 80) - 40;
+            const offsetY = (Math.random() * 80) - 40;
+
+            if (type === 'attacker') {
+                const existingNumbers = coachTokens
+                    .filter(t => t.type === 'player' && t.color === '#EF4444')
+                    .map(t => parseInt(t.label))
+                    .filter(n => !isNaN(n));
+                let nextNum = 1;
+                while (existingNumbers.includes(nextNum)) {
+                    nextNum++;
+                }
+                coachTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: String(nextNum),
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 18,
+                    color: '#EF4444',
+                    type: 'player'
+                });
+            } else if (type === 'defender') {
+                const existingNumbers = coachTokens
+                    .filter(t => t.type === 'player' && t.color === '#3B82F6')
+                    .map(t => parseInt(t.label))
+                    .filter(n => !isNaN(n));
+                let nextNum = 6;
+                while (existingNumbers.includes(nextNum)) {
+                    nextNum++;
+                }
+                coachTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: String(nextNum),
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 18,
+                    color: '#3B82F6',
+                    type: 'player'
+                });
+            } else if (type === 'ball') {
+                coachTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: '🏀',
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 16,
+                    color: '#F97316',
+                    type: 'ball'
+                });
+            }
+
+            renderTacticalBoard();
+        }
+
+        function clearCoachTokens() {
+            coachTokens = [];
+            renderTacticalBoard();
+        }
+
+        function clearCoachDrawings() {
+            coachDrawings = [];
+            renderTacticalBoard();
+        }
+
+        function undoCoachDrawing() {
+            if (coachDrawings.length > 0) {
+                coachDrawings.pop();
+                renderTacticalBoard();
+            }
+        }
+
+        function setCoachTool(toolName) {
+            coachTool = toolName;
+            document.querySelectorAll('.canvas-toolbar .tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.getElementById('tool-btn-' + toolName);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        function setCoachColor(colorHex, el) {
+            coachColor = colorHex;
+            document.querySelectorAll('.color-palette .color-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            if (el) el.classList.add('active');
+        }
+
+        /**
+         * Dessine l'image réelle du terrain sélectionné en fond du canvas.
+         * Efface entièrement le canvas (clearRect) pour éviter toute superposition visuelle entre les terrains.
+         */
+        function drawBasketballCourtImage(ctx, width, height) {
+            ctx.clearRect(0, 0, width, height); // Nettoyage complet
+            ctx.fillStyle = '#FAF8F5';
+            ctx.fillRect(0, 0, width, height);
+
+            const img = coachCourtType === 'tout' ? coachCourtImages.tout : coachCourtImages.demi;
+            if (img.complete && img.naturalWidth !== 0) {
+                ctx.drawImage(img, 0, 0, width, height);
+            }
+        }
+
+        function drawArrowHead(ctx, x1, y1, x2, y2, color, headLength = 14) {
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const headAngle = Math.PI / 6;
+
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(
+                x2 - headLength * Math.cos(angle - headAngle),
+                y2 - headLength * Math.sin(angle - headAngle)
+            );
+            ctx.lineTo(
+                x2 - headLength * Math.cos(angle + headAngle),
+                y2 - headLength * Math.sin(angle + headAngle)
+            );
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawStraightPass(ctx, x1, y1, x2, y2, color, lineWidth = 3.5) {
+            const dist = Math.hypot(x2 - x1, y2 - y1);
+            if (dist < 4) return;
+
+            const headLength = 14;
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const endX = x2 - (headLength - 2) * Math.cos(angle);
+            const endY = y2 - (headLength - 2) * Math.sin(angle);
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            ctx.restore();
+
+            drawArrowHead(ctx, x1, y1, x2, y2, color, headLength);
+        }
+
+        function drawDashedRun(ctx, x1, y1, x2, y2, color, lineWidth = 3.5) {
+            const dist = Math.hypot(x2 - x1, y2 - y1);
+            if (dist < 4) return;
+
+            const headLength = 14;
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const endX = x2 - (headLength - 2) * Math.cos(angle);
+            const endY = y2 - (headLength - 2) * Math.sin(angle);
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.setLineDash([8, 6]);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            ctx.restore();
+
+            drawArrowHead(ctx, x1, y1, x2, y2, color, headLength);
+        }
+
+        function drawZigzagDribble(ctx, x1, y1, x2, y2, color, lineWidth = 3.5, amplitude = 8, wavelength = 16) {
+            const dist = Math.hypot(x2 - x1, y2 - y1);
+            if (dist < 4) return;
+
+            const headLength = 14;
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const cosA = Math.cos(angle);
+            const sinA = Math.sin(angle);
+
+            const perpX = -sinA;
+            const perpY = cosA;
+
+            const effectiveDist = Math.max(0, dist - headLength);
+            const stepLength = wavelength / 2;
+            const numSteps = Math.floor(effectiveDist / stepLength);
+
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.setLineDash([]);
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+
+            for (let i = 1; i <= numSteps; i++) {
+                const currentDist = (i / numSteps) * effectiveDist;
+                const side = (i % 2 === 0) ? 1 : -1;
+                const currentAmp = (i === numSteps) ? 0 : side * amplitude;
+
+                const px = x1 + currentDist * cosA + currentAmp * perpX;
+                const py = y1 + currentDist * sinA + currentAmp * perpY;
+
+                ctx.lineTo(px, py);
+            }
+
+            ctx.stroke();
+            ctx.restore();
+
+            drawArrowHead(ctx, x1, y1, x2, y2, color, headLength);
+        }
+
+        function drawTokens(ctx) {
+            coachTokens.forEach(token => {
+                ctx.save();
+
+                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetY = 3;
+
+                if (token.type === 'ball') {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#F97316';
+                    ctx.fill();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 15px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('🏀', token.x, token.y + 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = token.color;
+                    ctx.fill();
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 14px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(token.label, token.x, token.y + 1);
+                }
+
+                ctx.restore();
+            });
+        }
+
+        function renderTacticalBoard() {
+            const canvas = document.getElementById('coach-tactical-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // 1. Fond terrain (Image vraie)
+            drawBasketballCourtImage(ctx, canvas.width, canvas.height);
+
+            // 2. Tracés enregistrés
+            coachDrawings.forEach(d => {
+                if (d.tool === 'straight') {
+                    drawStraightPass(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                } else if (d.tool === 'dashed') {
+                    drawDashedRun(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                } else if (d.tool === 'zigzag') {
+                    drawZigzagDribble(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                }
+            });
+
+            // 3. Tracé actif
+            if (activeCoachDrawing) {
+                const d = activeCoachDrawing;
+                if (d.tool === 'straight') {
+                    drawStraightPass(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                } else if (d.tool === 'dashed') {
+                    drawDashedRun(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                } else if (d.tool === 'zigzag') {
+                    drawZigzagDribble(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                }
+            }
+
+            // 4. Pions
+            drawTokens(ctx);
+        }
+
+        function getCanvasCoordinates(e, canvas) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX, clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else if (e.changedTouches && e.changedTouches.length > 0) {
+                clientX = e.changedTouches[0].clientX;
+                clientY = e.changedTouches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function handleCoachPointerDown(e) {
+            const canvas = document.getElementById('coach-tactical-canvas');
+            if (!canvas) return;
+
+            const pos = getCanvasCoordinates(e, canvas);
+
+            let clickedToken = null;
+            for (let i = coachTokens.length - 1; i >= 0; i--) {
+                const token = coachTokens[i];
+                const dist = Math.hypot(pos.x - token.x, pos.y - token.y);
+                if (dist <= token.radius + 6) {
+                    clickedToken = token;
+                    break;
+                }
+            }
+
+            if (clickedToken) {
+                isCoachInteracting = true;
+                activeCoachToken = clickedToken;
+                e.preventDefault();
+            } else if (coachTool !== 'select') {
+                isCoachInteracting = true;
+                activeCoachDrawing = {
+                    tool: coachTool,
+                    color: coachColor,
+                    width: 3.5,
+                    fromX: pos.x,
+                    fromY: pos.y,
+                    toX: pos.x,
+                    toY: pos.y
+                };
+                e.preventDefault();
+            }
+        }
+
+        function handleCoachPointerMove(e) {
+            if (!isCoachInteracting) return;
+            const canvas = document.getElementById('coach-tactical-canvas');
+            if (!canvas) return;
+
+            const pos = getCanvasCoordinates(e, canvas);
+
+            if (activeCoachToken) {
+                activeCoachToken.x = Math.max(18, Math.min(canvas.width - 18, pos.x));
+                activeCoachToken.y = Math.max(18, Math.min(canvas.height - 18, pos.y));
+                renderTacticalBoard();
+                e.preventDefault();
+            } else if (activeCoachDrawing) {
+                activeCoachDrawing.toX = pos.x;
+                activeCoachDrawing.toY = pos.y;
+                renderTacticalBoard();
+                e.preventDefault();
+            }
+        }
+
+        function handleCoachPointerUp(e) {
+            if (!isCoachInteracting) return;
+
+            if (activeCoachDrawing) {
+                const dist = Math.hypot(activeCoachDrawing.toX - activeCoachDrawing.fromX, activeCoachDrawing.toY - activeCoachDrawing.fromY);
+                if (dist > 8) {
+                    coachDrawings.push(activeCoachDrawing);
+                }
+                activeCoachDrawing = null;
+            }
+
+            activeCoachToken = null;
+            isCoachInteracting = false;
+            renderTacticalBoard();
+        }
+
+        function handleCoachDoubleClick(e) {
+            const canvas = document.getElementById('coach-tactical-canvas');
+            if (!canvas) return;
+            const pos = getCanvasCoordinates(e, canvas);
+
+            for (let i = coachTokens.length - 1; i >= 0; i--) {
+                const token = coachTokens[i];
+                const dist = Math.hypot(pos.x - token.x, pos.y - token.y);
+                if (dist <= token.radius + 6) {
+                    coachTokens.splice(i, 1);
+                    renderTacticalBoard();
+                    break;
+                }
+            }
+        }
+
+        function initCoachCanvas() {
+            const canvas = document.getElementById('coach-tactical-canvas');
+            if (!canvas || coachCanvasInitialized) return;
+
+            canvas.addEventListener('mousedown', handleCoachPointerDown);
+            canvas.addEventListener('mousemove', handleCoachPointerMove);
+            canvas.addEventListener('mouseup', handleCoachPointerUp);
+            canvas.addEventListener('mouseleave', handleCoachPointerUp);
+            canvas.addEventListener('dblclick', handleCoachDoubleClick);
+
+            canvas.addEventListener('touchstart', handleCoachPointerDown, { passive: false });
+            canvas.addEventListener('touchmove', handleCoachPointerMove, { passive: false });
+            canvas.addEventListener('touchend', handleCoachPointerUp);
+            canvas.addEventListener('touchcancel', handleCoachPointerUp);
+
+            coachCanvasInitialized = true;
+            renderTacticalBoard();
+        }
+
+
+        // ==========================================================================
+        // --- 3. GESTION DES EXERCICES DE SÉANCE & HISTORIQUE MULTI-EXERCICES ---
+        // ==========================================================================
+
+        /**
+         * Ajoute l'exercice en cours de création à la liste de brouillon de la séance.
+         */
+        function addExerciseToDraft() {
+            const exTitle = document.getElementById('coach-ex-title')?.value.trim();
+            const exDesc = document.getElementById('coach-ex-desc')?.value.trim();
+
+            if (!exTitle) {
+                showCustomAlert("Veuillez saisir un nom ou type d'exercice (ex: Échauffement, Situation 1...).", "Titre Manquant", "warning");
+                return;
+            }
+
+            if (!exDesc) {
+                showCustomAlert("Veuillez remplir les consignes et la description de cet exercice.", "Description Manquante", "warning");
+                return;
+            }
+
+            const canvas = document.getElementById('coach-tactical-canvas');
+            let imageBase64 = '';
+            if (canvas) {
+                renderTacticalBoard();
+                try {
+                    imageBase64 = canvas.toDataURL('image/png');
+                } catch (err) {
+                    console.warn("Impossible d'exporter le canvas en base64 (restriction file:// du navigateur) :", err);
+                    imageBase64 = '';
+                }
+            }
+
+            const newEx = {
+                id: Date.now(),
+                title: exTitle,
+                courtType: coachCourtType,
+                description: exDesc,
+                imageBase64: imageBase64
+            };
+
+            currentDraftExercises.push(newEx);
+
+            // Réinitialiser les champs de l'exercice
+            document.getElementById('coach-ex-title').value = '';
+            document.getElementById('coach-ex-desc').value = '';
+            clearCoachDrawings();
+            resetCoachTokens();
+
+            // Mettre à jour la vue de la liste des exercices du brouillon
+            renderDraftExercisesList();
+
+            showCustomAlert(`L'exercice "${exTitle}" a été ajouté à la séance ! (${currentDraftExercises.length} exercice(s) dans cette séance).`, "Exercice Ajouté", "success");
+        }
+
+        function removeDraftExercise(index) {
+            if (index >= 0 && index < currentDraftExercises.length) {
+                currentDraftExercises.splice(index, 1);
+                renderDraftExercisesList();
+            }
+        }
+
+        function renderDraftExercisesList() {
+            const countBadge = document.getElementById('draft-count-badge');
+            const listCount = document.getElementById('draft-list-count');
+            const container = document.getElementById('coach-draft-container');
+
+            if (countBadge) countBadge.textContent = currentDraftExercises.length;
+            if (listCount) listCount.textContent = currentDraftExercises.length;
+
+            if (!container) return;
+
+            if (currentDraftExercises.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 25px; background: #FAF9F6; border-radius: var(--border-radius-md); border: 1.5px dashed #E0DCD3;">
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> Aucun exercice n'a encore été ajouté à cette séance. Créez un premier exercice ci-dessus et cliquez sur "Ajouter cet exercice à la séance".
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = currentDraftExercises.map((ex, idx) => `
+                <div class="session-card" style="border: 1.5px solid var(--primary-purple);">
+                    <div class="session-card-header" style="background: #F3E5F5;">
+                        <span class="session-badge-date" style="background: var(--primary-purple); color: white;">
+                            Exercice ${idx + 1}
+                        </span>
+                        <span class="session-badge-theme" style="background: white; color: var(--primary-purple); font-weight: 800;">
+                            ${ex.courtType === 'tout' ? '🏀 Tout-Terrain' : '🏀 Demi-Terrain'}
+                        </span>
+                    </div>
+                    <div class="session-card-body">
+                        <h4 style="font-weight: 800; color: var(--secondary-burgundy); font-size: 1rem;">${ex.title}</h4>
+                        ${ex.imageBase64 ? `<img src="${ex.imageBase64}" class="session-image-thumb" alt="Schéma exercise">` : ''}
+                        <div class="session-desc" style="font-size: 0.85rem;">
+                            ${ex.description.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                        </div>
+                    </div>
+                    <div class="session-card-footer">
+                        <button class="btn btn-beige btn-sm" onclick="removeDraftExercise(${idx})" style="color: #D32F2F; border-color: #FFCDD2; width: 100%; justify-content: center;">
+                            <i class="fas fa-trash-alt"></i> Retirer cet exercice
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * Sauvegarde la séance entière (avec tous ses exercices) dans localStorage.
+         */
+        function saveCoachSession() {
+            const dateVal = document.getElementById('coach-session-date').value;
+            const sessionTitle = document.getElementById('coach-session-title')?.value.trim() || 'Séance d\'entraînement';
+
+            if (!dateVal) {
+                showCustomAlert("Veuillez sélectionner une date pour la séance.", "Date Manquante", "warning");
+                return;
+            }
+
+            if (currentDraftExercises.length === 0) {
+                showCustomAlert("La séance ne contient aucun exercice. Veuillez d'abord ajouter au moins un exercice en utilisant le bouton 'Ajouter cet exercice à la séance'.", "Aucun Exercice", "warning");
+                return;
+            }
+
+            const sessionObj = {
+                id: Date.now(),
+                date: dateVal,
+                title: sessionTitle,
+                exercises: [...currentDraftExercises],
+                postBilan: '',
+                createdAt: new Date().toISOString()
+            };
+
+            const currentHistory = JSON.parse(localStorage.getItem('historique_seances')) || [];
+            currentHistory.unshift(sessionObj); // Ajout en haut
+            localStorage.setItem('historique_seances', JSON.stringify(currentHistory));
+
+            // Réinitialiser le brouillon de séance
+            currentDraftExercises = [];
+            if (document.getElementById('coach-session-title')) document.getElementById('coach-session-title').value = '';
+            renderDraftExercisesList();
+
+            // Mettre à jour l'affichage de l'historique
+            renderCoachHistory();
+
+            showCustomAlert(`La séance entière "${sessionTitle}" (${sessionObj.exercises.length} exercice(s)) a été sauvegardée avec succès !`, "Séance Enregistrée", "success");
+        }
+
+        function renderCoachHistory() {
+            const container = document.getElementById('coach-history-container');
+            if (!container) return;
+
+            const currentHistory = JSON.parse(localStorage.getItem('historique_seances')) || [];
+
+            if (currentHistory.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: var(--white-card); border-radius: var(--border-radius-lg); border: 1.5px dashed rgba(0,0,0,0.1);">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; color: var(--primary-purple); opacity: 0.5; margin-bottom: 15px;"></i>
+                        <h3 style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: 8px;">Aucune séance dans l'historique</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Créez votre première séance d'entraînement complète avec ses exercices ci-dessus.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = currentHistory.map(session => {
+                const formattedDate = new Date(session.date).toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                // Supporter ancienne structure avec 1 seul exercice OU nouvelle structure multi-exercices
+                const exercisesList = Array.isArray(session.exercises) ? session.exercises : [
+                    {
+                        id: session.id,
+                        title: session.theme || 'Exercice',
+                        courtType: 'demi',
+                        description: session.description || '',
+                        imageBase64: session.imageBase64 || ''
+                    }
+                ];
+
+                return `
+                    <div class="session-card" id="session-card-${session.id}" style="grid-column: 1 / -1; margin-bottom: 15px;">
+                        <div class="session-card-header" style="background: #F4EFFA; padding: 18px 24px;">
+                            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                                <span class="session-badge-date" style="font-size: 0.9rem; padding: 6px 14px; background: var(--primary-purple); color: white;">
+                                    <i class="far fa-calendar-alt"></i> ${formattedDate}
+                                </span>
+                                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--secondary-burgundy); margin: 0;">
+                                    ${session.title || 'Séance d\'entraînement'}
+                                </h3>
+                                <span class="session-badge-theme">
+                                    ${exercisesList.length} exercice(s)
+                                </span>
+                            </div>
+                            <button class="btn btn-beige btn-sm" onclick="deleteCoachSession(${session.id})" style="color: #D32F2F; border-color: #FFCDD2;" title="Supprimer cette séance complète">
+                                <i class="fas fa-trash-alt"></i> Supprimer la séance
+                            </button>
+                        </div>
+                        
+                        <div class="session-card-body" style="gap: 20px;">
+                            <!-- Liste des Exercices de la séance -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                                ${exercisesList.map((ex, idx) => `
+                                    <div style="background: #FAFAFA; border-radius: var(--border-radius-md); border: 1px solid #E5E7EB; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span style="font-size: 0.88rem; font-weight: 800; color: var(--secondary-burgundy);">
+                                                ${idx + 1}. ${ex.title}
+                                            </span>
+                                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); background: #EFEFEF; padding: 3px 8px; border-radius: 8px;">
+                                                ${ex.courtType === 'tout' ? 'Tout-Terrain' : 'Demi-Terrain'}
+                                            </span>
+                                        </div>
+                                        ${ex.imageBase64 ? `
+                                            <img src="${ex.imageBase64}" class="session-image-thumb" alt="Schéma exercise" title="Cliquez pour agrandir" onclick="viewCoachTacticalImage('${session.id}', ${idx})">
+                                        ` : ''}
+                                        <div class="session-desc" style="font-size: 0.85rem; margin-top: 5px;">
+                                            ${(ex.description || '').replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <!-- Bilan Post-Séance -->
+                            <div class="session-bilan-box">
+                                <span class="session-bilan-title">
+                                    <i class="fas fa-pen-fancy"></i> Bilan post-séance (Notes et retour d'expérience du coach)
+                                </span>
+                                <textarea 
+                                    class="session-bilan-textarea" 
+                                    placeholder="Saisissez vos remarques générales sur la séance, points travaillés, réactions des joueurs..."
+                                    onchange="updateSessionBilan(${session.id}, this.value)"
+                                    oninput="updateSessionBilan(${session.id}, this.value)"
+                                >${(session.postBilan || '').replace(/</g, "&lt;").replace(/>/g, "&gt;")}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="session-card-footer">
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">
+                                <i class="fas fa-check-circle" style="color: #10B981;"></i> Séance enregistrée dans le localStorage
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateSessionBilan(sessionId, newBilan) {
+            const currentHistory = JSON.parse(localStorage.getItem('historique_seances')) || [];
+            const session = currentHistory.find(s => s.id === sessionId);
+            if (session) {
+                session.postBilan = newBilan;
+                localStorage.setItem('historique_seances', JSON.stringify(currentHistory));
+            }
+        }
+
+        async function deleteCoachSession(sessionId) {
+            if (await showCustomConfirm("Voulez-vous vraiment supprimer cette séance complète de l'historique ?", "Supprimer la séance", "danger", "Supprimer", "Annuler")) {
+                let currentHistory = JSON.parse(localStorage.getItem('historique_seances')) || [];
+                currentHistory = currentHistory.filter(s => s.id !== sessionId);
+                localStorage.setItem('historique_seances', JSON.stringify(currentHistory));
+                renderCoachHistory();
+            }
+        }
+
+        function viewCoachTacticalImage(sessionId, exerciseIdx = 0) {
+            const currentHistory = JSON.parse(localStorage.getItem('historique_seances')) || [];
+            const session = currentHistory.find(s => s.id == sessionId);
+            if (!session) return;
+
+            let imageBase64 = '';
+            let title = session.title;
+
+            if (Array.isArray(session.exercises) && session.exercises[exerciseIdx]) {
+                imageBase64 = session.exercises[exerciseIdx].imageBase64;
+                title = `${session.title} - ${session.exercises[exerciseIdx].title}`;
+            } else {
+                imageBase64 = session.imageBase64;
+            }
+
+            if (!imageBase64) return;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay active';
+            overlay.style.zIndex = '9999';
+            overlay.onclick = (e) => {
+                if (e.target === overlay) document.body.removeChild(overlay);
+            };
+
+            overlay.innerHTML = `
+                <div class="modal-content" style="max-width: 880px; text-align: center;">
+                    <button class="close-modal" onclick="this.closest('.modal-overlay').remove()"><i class="fas fa-times"></i></button>
+                    <h3 style="margin-bottom: 15px; color: var(--secondary-burgundy);">${title}</h3>
+                    <img src="${imageBase64}" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #E0E0E0;" alt="Schéma tactique grand format">
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+        }
+
+        // ==========================================================================
+        // --- 4. MODULE SYSTÈMES ANIMÉS (KEYFRAME RECORDER & ANIMATION ENGINE) ---
+        // ==========================================================================
+
+        let sysCourtType = 'demi';
+        let sysTool = 'select';
+        let sysColor = '#1E293B';
+        let sysDrawings = [];
+        let sysTokens = [];
+        let activeSysToken = null;
+        let activeSysDrawing = null;
+        let isSysInteracting = false;
+        let sysCanvasInitialized = false;
+
+        let isRecordingSys = false;
+        let sysKeyframes = [];
+        let sysRecInterval = null;
+        let sysRecStartTime = 0;
+        let sysTimerInterval = null;
+
+        let sysTestAnimId = null;
+        const cardAnimStates = {};
+
+        function setSysCourtType(type) {
+            sysCourtType = type;
+            const btnDemi = document.getElementById('btn-sys-court-demi');
+            const btnTout = document.getElementById('btn-sys-court-tout');
+            const labelEl = document.getElementById('sys-court-type-label');
+
+            if (type === 'demi') {
+                if (btnDemi) btnDemi.classList.add('active');
+                if (btnTout) btnTout.classList.remove('active');
+                if (labelEl) labelEl.textContent = 'Demi-Terrain';
+            } else {
+                if (btnTout) btnTout.classList.add('active');
+                if (btnDemi) btnDemi.classList.remove('active');
+                if (labelEl) labelEl.textContent = 'Tout-Terrain';
+            }
+
+            renderSysBoard();
+        }
+
+        function addSysToken(type) {
+            const canvas = document.getElementById('sys-tactical-canvas');
+            const width = canvas ? canvas.width : 960;
+            const height = canvas ? canvas.height : 640;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const offsetX = (Math.random() * 80) - 40;
+            const offsetY = (Math.random() * 80) - 40;
+
+            if (type === 'attacker') {
+                const existingNumbers = sysTokens
+                    .filter(t => t.type === 'player' && t.color === '#EF4444')
+                    .map(t => parseInt(t.label))
+                    .filter(n => !isNaN(n));
+                let nextNum = 1;
+                while (existingNumbers.includes(nextNum)) nextNum++;
+
+                sysTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: String(nextNum),
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 18,
+                    color: '#EF4444',
+                    type: 'player'
+                });
+            } else if (type === 'defender') {
+                const existingNumbers = sysTokens
+                    .filter(t => t.type === 'player' && t.color === '#3B82F6')
+                    .map(t => parseInt(t.label))
+                    .filter(n => !isNaN(n));
+                let nextNum = 6;
+                while (existingNumbers.includes(nextNum)) nextNum++;
+
+                sysTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: String(nextNum),
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 18,
+                    color: '#3B82F6',
+                    type: 'player'
+                });
+            } else if (type === 'ball') {
+                sysTokens.push({
+                    id: Date.now() + Math.random(),
+                    label: '🏀',
+                    x: Math.round(centerX + offsetX),
+                    y: Math.round(centerY + offsetY),
+                    radius: 16,
+                    color: '#F97316',
+                    type: 'ball'
+                });
+            }
+
+            renderSysBoard();
+            if (isRecordingSys) recordSysKeyframe();
+        }
+
+        function clearSysTokens() {
+            sysTokens = [];
+            renderSysBoard();
+            if (isRecordingSys) recordSysKeyframe();
+        }
+
+        function clearSysDrawings() {
+            sysDrawings = [];
+            renderSysBoard();
+            if (isRecordingSys) recordSysKeyframe();
+        }
+
+        function setSysTool(toolName) {
+            sysTool = toolName;
+            document.querySelectorAll('#coach-tab-systemes .canvas-toolbar .tool-btn').forEach(btn => {
+                if (btn.id && btn.id.startsWith('sys-tool-')) btn.classList.remove('active');
+            });
+            const activeBtn = document.getElementById('sys-tool-' + toolName);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        function setSysColor(colorHex, el) {
+            sysColor = colorHex;
+            document.querySelectorAll('#coach-tab-systemes .color-palette .color-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            if (el) el.classList.add('active');
+        }
+
+        function drawSysCourtImage(ctx, width, height) {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#FAF8F5';
+            ctx.fillRect(0, 0, width, height);
+
+            const img = sysCourtType === 'tout' ? coachCourtImages.tout : coachCourtImages.demi;
+            if (img.complete && img.naturalWidth !== 0) {
+                ctx.drawImage(img, 0, 0, width, height);
+            }
+        }
+
+        function renderSysBoard(overrideTokens = null, overrideDrawings = null) {
+            const canvas = document.getElementById('sys-tactical-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            drawSysCourtImage(ctx, canvas.width, canvas.height);
+
+            const currentDrawings = overrideDrawings || sysDrawings;
+            const currentTokens = overrideTokens || sysTokens;
+
+            currentDrawings.forEach(d => {
+                if (d.tool === 'straight') drawStraightPass(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'dashed') drawDashedRun(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'zigzag') drawZigzagDribble(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+            });
+
+            if (activeSysDrawing) {
+                const d = activeSysDrawing;
+                if (d.tool === 'straight') drawStraightPass(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'dashed') drawDashedRun(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'zigzag') drawZigzagDribble(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+            }
+
+            currentTokens.forEach(token => {
+                ctx.save();
+                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetY = 3;
+
+                if (token.type === 'ball') {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#F97316';
+                    ctx.fill();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 15px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('🏀', token.x, token.y + 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = token.color;
+                    ctx.fill();
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 14px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(token.label, token.x, token.y + 1);
+                }
+                ctx.restore();
+            });
+        }
+
+        function startSystemRecording() {
+            if (sysTestAnimId) {
+                cancelAnimationFrame(sysTestAnimId);
+                sysTestAnimId = null;
+            }
+
+            sysKeyframes = [];
+            isRecordingSys = true;
+            sysRecStartTime = Date.now();
+
+            recordSysKeyframe();
+
+            sysRecInterval = setInterval(recordSysKeyframe, 50);
+
+            const badge = document.getElementById('sys-rec-badge');
+            const timerEl = document.getElementById('sys-rec-timer');
+            if (badge) badge.style.display = 'flex';
+
+            sysTimerInterval = setInterval(() => {
+                if (timerEl) {
+                    const sec = Math.floor((Date.now() - sysRecStartTime) / 1000);
+                    timerEl.textContent = sec + 's';
+                }
+            }, 500);
+
+            document.getElementById('btn-sys-rec-start').style.display = 'none';
+            document.getElementById('btn-sys-rec-stop').style.display = 'inline-flex';
+            document.getElementById('btn-sys-play-test').disabled = true;
+
+            showCustomAlert("Enregistrement en cours ! Déplacez vos pions et tracez les actions sur le terrain. Cliquez sur 'Arrêter' une fois la séquence terminée.", "Enregistrement Démarré", "info");
+        }
+
+        function recordSysKeyframe() {
+            if (!isRecordingSys) return;
+            const elapsedTime = Date.now() - sysRecStartTime;
+
+            sysKeyframes.push({
+                time: elapsedTime,
+                tokens: JSON.parse(JSON.stringify(sysTokens)),
+                drawings: JSON.parse(JSON.stringify(sysDrawings))
+            });
+        }
+
+        function stopSystemRecording() {
+            if (!isRecordingSys) return;
+
+            isRecordingSys = false;
+            if (sysRecInterval) clearInterval(sysRecInterval);
+            if (sysTimerInterval) clearInterval(sysTimerInterval);
+
+            recordSysKeyframe();
+
+            const badge = document.getElementById('sys-rec-badge');
+            if (badge) badge.style.display = 'none';
+
+            document.getElementById('btn-sys-rec-start').style.display = 'inline-flex';
+            document.getElementById('btn-sys-rec-stop').style.display = 'none';
+            document.getElementById('btn-sys-play-test').disabled = (sysKeyframes.length < 2);
+
+            const durationSec = ((sysKeyframes[sysKeyframes.length - 1]?.time || 0) / 1000).toFixed(1);
+            showCustomAlert(`Enregistrement terminé ! Séquence de ${durationSec}s capturée (${sysKeyframes.length} étapes). Vous pouvez maintenant tester l'animation ou sauvegarder le système.`, "Séquence Enregistrée", "success");
+        }
+
+        function testSystemAnimation() {
+            if (sysKeyframes.length < 2) return;
+
+            if (sysTestAnimId) {
+                cancelAnimationFrame(sysTestAnimId);
+                sysTestAnimId = null;
+            }
+
+            const totalTime = sysKeyframes[sysKeyframes.length - 1].time;
+            const animStartTime = Date.now();
+
+            function animateLoop() {
+                const elapsed = (Date.now() - animStartTime) % (totalTime + 1000);
+
+                if (elapsed > totalTime) {
+                    const lastKf = sysKeyframes[sysKeyframes.length - 1];
+                    renderSysBoard(lastKf.tokens, lastKf.drawings);
+                } else {
+                    const interpolatedState = getInterpolatedKeyframe(sysKeyframes, elapsed);
+                    renderSysBoard(interpolatedState.tokens, interpolatedState.drawings);
+                }
+
+                sysTestAnimId = requestAnimationFrame(animateLoop);
+            }
+
+            sysTestAnimId = requestAnimationFrame(animateLoop);
+        }
+
+        function getInterpolatedKeyframe(keyframes, timeMs) {
+            if (keyframes.length === 0) return { tokens: [], drawings: [] };
+            if (keyframes.length === 1 || timeMs <= keyframes[0].time) return keyframes[0];
+            if (timeMs >= keyframes[keyframes.length - 1].time) return keyframes[keyframes.length - 1];
+
+            let kf1 = keyframes[0];
+            let kf2 = keyframes[keyframes.length - 1];
+
+            for (let i = 0; i < keyframes.length - 1; i++) {
+                if (timeMs >= keyframes[i].time && timeMs <= keyframes[i + 1].time) {
+                    kf1 = keyframes[i];
+                    kf2 = keyframes[i + 1];
+                    break;
+                }
+            }
+
+            const duration = kf2.time - kf1.time;
+            const ratio = duration > 0 ? (timeMs - kf1.time) / duration : 1;
+
+            const interpTokens = kf1.tokens.map(t1 => {
+                const t2 = kf2.tokens.find(t => t.id === t1.id);
+                if (!t2) return t1;
+
+                return {
+                    ...t1,
+                    x: Math.round(t1.x + (t2.x - t1.x) * ratio),
+                    y: Math.round(t1.y + (t2.y - t1.y) * ratio)
+                };
+            });
+
+            return {
+                tokens: interpTokens,
+                drawings: kf2.drawings
+            };
+        }
+
+        function handleSysPointerDown(e) {
+            const canvas = document.getElementById('sys-tactical-canvas');
+            if (!canvas) return;
+            const pos = getCanvasCoordinates(e, canvas);
+
+            let clickedToken = null;
+            for (let i = sysTokens.length - 1; i >= 0; i--) {
+                const token = sysTokens[i];
+                const dist = Math.hypot(pos.x - token.x, pos.y - token.y);
+                if (dist <= token.radius + 6) {
+                    clickedToken = token;
+                    break;
+                }
+            }
+
+            if (clickedToken) {
+                isSysInteracting = true;
+                activeSysToken = clickedToken;
+                e.preventDefault();
+            } else if (sysTool !== 'select') {
+                isSysInteracting = true;
+                activeSysDrawing = {
+                    tool: sysTool,
+                    color: sysColor,
+                    width: 3.5,
+                    fromX: pos.x,
+                    fromY: pos.y,
+                    toX: pos.x,
+                    toY: pos.y
+                };
+                e.preventDefault();
+            }
+        }
+
+        function handleSysPointerMove(e) {
+            if (!isSysInteracting) return;
+            const canvas = document.getElementById('sys-tactical-canvas');
+            if (!canvas) return;
+
+            const pos = getCanvasCoordinates(e, canvas);
+
+            if (activeSysToken) {
+                activeSysToken.x = Math.max(18, Math.min(canvas.width - 18, pos.x));
+                activeSysToken.y = Math.max(18, Math.min(canvas.height - 18, pos.y));
+                renderSysBoard();
+                if (isRecordingSys) recordSysKeyframe();
+                e.preventDefault();
+            } else if (activeSysDrawing) {
+                activeSysDrawing.toX = pos.x;
+                activeSysDrawing.toY = pos.y;
+                renderSysBoard();
+                e.preventDefault();
+            }
+        }
+
+        function handleSysPointerUp(e) {
+            if (!isSysInteracting) return;
+
+            if (activeSysDrawing) {
+                const dist = Math.hypot(activeSysDrawing.toX - activeSysDrawing.fromX, activeSysDrawing.toY - activeSysDrawing.fromY);
+                if (dist > 8) {
+                    sysDrawings.push(activeSysDrawing);
+                    if (isRecordingSys) recordSysKeyframe();
+                }
+                activeSysDrawing = null;
+            }
+
+            activeSysToken = null;
+            isSysInteracting = false;
+            renderSysBoard();
+        }
+
+        function handleSysDoubleClick(e) {
+            const canvas = document.getElementById('sys-tactical-canvas');
+            if (!canvas) return;
+            const pos = getCanvasCoordinates(e, canvas);
+
+            for (let i = sysTokens.length - 1; i >= 0; i--) {
+                const token = sysTokens[i];
+                const dist = Math.hypot(pos.x - token.x, pos.y - token.y);
+                if (dist <= token.radius + 6) {
+                    sysTokens.splice(i, 1);
+                    renderSysBoard();
+                    if (isRecordingSys) recordSysKeyframe();
+                    break;
+                }
+            }
+        }
+
+        function initSysCanvas() {
+            const canvas = document.getElementById('sys-tactical-canvas');
+            if (!canvas || sysCanvasInitialized) return;
+
+            canvas.addEventListener('mousedown', handleSysPointerDown);
+            canvas.addEventListener('mousemove', handleSysPointerMove);
+            canvas.addEventListener('mouseup', handleSysPointerUp);
+            canvas.addEventListener('mouseleave', handleSysPointerUp);
+            canvas.addEventListener('dblclick', handleSysDoubleClick);
+
+            canvas.addEventListener('touchstart', handleSysPointerDown, { passive: false });
+            canvas.addEventListener('touchmove', handleSysPointerMove, { passive: false });
+            canvas.addEventListener('touchend', handleSysPointerUp);
+            canvas.addEventListener('touchcancel', handleSysPointerUp);
+
+            sysCanvasInitialized = true;
+            renderSysBoard();
+        }
+
+        function saveAnimatedSystem() {
+            const sysName = document.getElementById('sys-name')?.value.trim();
+            const sysCategory = document.getElementById('sys-category')?.value;
+            const sysDesc = document.getElementById('sys-desc')?.value.trim();
+
+            if (!sysName) {
+                showCustomAlert("Veuillez saisir un nom pour le système (ex: Horn 1 Pick & Roll).", "Nom Manquant", "warning");
+                return;
+            }
+
+            if (sysKeyframes.length < 2) {
+                showCustomAlert("Le système ne contient aucun enregistrement mouvement. Cliquez sur '🔴 Enregistrer', effectuez les déplacements de pions, puis sur '⏹️ Arrêter' avant de sauvegarder.", "Aucun Mouvement Enregistré", "warning");
+                return;
+            }
+
+            const canvas = document.getElementById('sys-tactical-canvas');
+            let thumbnailBase64 = '';
+            if (canvas) {
+                try {
+                    thumbnailBase64 = canvas.toDataURL('image/png');
+                } catch (e) {
+                    thumbnailBase64 = '';
+                }
+            }
+
+            const totalDuration = sysKeyframes[sysKeyframes.length - 1].time;
+
+            const systemObj = {
+                id: Date.now(),
+                name: sysName,
+                category: sysCategory,
+                courtType: sysCourtType,
+                description: sysDesc,
+                keyframes: [...sysKeyframes],
+                duration: totalDuration,
+                thumbnailBase64: thumbnailBase64,
+                createdAt: new Date().toISOString()
+            };
+
+            const currentSystems = JSON.parse(localStorage.getItem('systemes_animes')) || [];
+            currentSystems.unshift(systemObj);
+            localStorage.setItem('systemes_animes', JSON.stringify(currentSystems));
+
+            document.getElementById('sys-name').value = '';
+            document.getElementById('sys-desc').value = '';
+            sysKeyframes = [];
+            sysTokens = [];
+            sysDrawings = [];
+            if (sysTestAnimId) {
+                cancelAnimationFrame(sysTestAnimId);
+                sysTestAnimId = null;
+            }
+            renderSysBoard();
+            document.getElementById('btn-sys-play-test').disabled = true;
+
+            renderCoachSystems();
+
+            showCustomAlert(`Le système animé "${sysName}" (${(totalDuration / 1000).toFixed(1)}s) a été sauvegardé avec succès dans la bibliothèque !`, "Système Sauvegardé", "success");
+        }
+
+        function renderCoachSystems() {
+            const container = document.getElementById('coach-systems-container');
+            if (!container) return;
+
+            const currentSystems = JSON.parse(localStorage.getItem('systemes_animes')) || [];
+
+            if (currentSystems.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: var(--white-card); border-radius: var(--border-radius-lg); border: 1.5px dashed rgba(0,0,0,0.1);">
+                        <i class="fas fa-video-slash" style="font-size: 3rem; color: var(--primary-purple); opacity: 0.5; margin-bottom: 15px;"></i>
+                        <h3 style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: 8px;">Aucun système animé enregistré</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Créez votre premier système vidéo animé ci-dessus en enregistrant les mouvements de vos joueurs.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = currentSystems.map(sys => `
+                <div class="session-card" id="sys-card-${sys.id}" style="grid-column: span 1;">
+                    <div class="session-card-header" style="background: #FEE2E2;">
+                        <span class="session-badge-date" style="background: #DC2626; color: white;">
+                            <i class="fas fa-play-circle"></i> ${(sys.duration / 1000).toFixed(1)}s
+                        </span>
+                        <span class="session-badge-theme" style="background: white; color: var(--secondary-burgundy); font-weight: 800;">
+                            ${sys.courtType === 'tout' ? '🏀 Tout-Terrain' : '🏀 Demi-Terrain'}
+                        </span>
+                    </div>
+
+                    <div class="session-card-body" style="padding: 16px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--secondary-burgundy); margin-bottom: 4px;">
+                            ${sys.name}
+                        </h3>
+                        <span style="font-size: 0.78rem; font-weight: 700; color: var(--primary-purple); background: #F3E5F5; padding: 3px 8px; border-radius: 8px; align-self: start; margin-bottom: 10px; display: inline-block;">
+                            ${sys.category}
+                        </span>
+
+                        <div class="canvas-container" style="background: #FAF8F5; margin-bottom: 10px; border-radius: var(--border-radius-md);">
+                            <canvas id="sys-card-canvas-${sys.id}" width="600" height="400" style="width: 100%; height: auto; display: block;"></canvas>
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #F8F9FA; padding: 8px 12px; border-radius: var(--border-radius-sm); border: 1px solid #E9ECEF;">
+                            <div style="display: flex; gap: 6px;">
+                                <button type="button" class="tool-btn btn-sm" id="btn-card-play-${sys.id}" onclick="playCardSystemAnimation(${sys.id})" title="Lancer l'animation">
+                                    <i class="fas fa-play" style="color: #10B981;"></i> Play
+                                </button>
+                                <button type="button" class="tool-btn btn-sm" id="btn-card-pause-${sys.id}" onclick="pauseCardSystemAnimation(${sys.id})" title="Mettre en pause" style="display: none;">
+                                    <i class="fas fa-pause" style="color: #F59E0B;"></i> Pause
+                                </button>
+                                <button type="button" class="tool-btn btn-sm" onclick="restartCardSystemAnimation(${sys.id})" title="Recommencer au début">
+                                    <i class="fas fa-redo"></i> Replay
+                                </button>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">Vitesse:</span>
+                                <select id="speed-card-${sys.id}" class="form-control" style="padding: 2px 6px; font-size: 0.78rem; height: auto;" onchange="updateCardSpeed(${sys.id}, this.value)">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="1.0" selected>1.0x</option>
+                                    <option value="1.5">1.5x</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        ${sys.description ? `
+                            <div class="session-desc" style="font-size: 0.85rem; margin-top: 10px;">
+                                ${(sys.description).replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="session-card-footer">
+                        <span style="font-size: 0.78rem; color: var(--text-muted);">
+                            <i class="fas fa-check-circle" style="color: #10B981;"></i> Système enregistré
+                        </span>
+                        <button class="btn btn-beige btn-sm" onclick="deleteCoachSystem(${sys.id})" style="color: #D32F2F; border-color: #FFCDD2;" title="Supprimer ce système">
+                            <i class="fas fa-trash-alt"></i> Supprimer
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            setTimeout(() => {
+                currentSystems.forEach(sys => {
+                    renderCardFrame(sys, 0);
+                });
+            }, 50);
+        }
+
+        function renderCardFrame(sys, timeMs) {
+            const canvas = document.getElementById(`sys-card-canvas-${sys.id}`);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#FAF8F5';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const img = sys.courtType === 'tout' ? coachCourtImages.tout : coachCourtImages.demi;
+            if (img.complete && img.naturalWidth !== 0) {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            }
+
+            const state = getInterpolatedKeyframe(sys.keyframes, timeMs);
+
+            state.drawings.forEach(d => {
+                if (d.tool === 'straight') drawStraightPass(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'dashed') drawDashedRun(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+                else if (d.tool === 'zigzag') drawZigzagDribble(ctx, d.fromX, d.fromY, d.toX, d.toY, d.color, d.width);
+            });
+
+            state.tokens.forEach(token => {
+                ctx.save();
+                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                ctx.shadowBlur = 4;
+                ctx.shadowOffsetY = 2;
+
+                if (token.type === 'ball') {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#F97316';
+                    ctx.fill();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 15px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('🏀', token.x, token.y + 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(token.x, token.y, token.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = token.color;
+                    ctx.fill();
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.shadowColor = 'transparent';
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 14px Montserrat, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(token.label, token.x, token.y + 1);
+                }
+                ctx.restore();
+            });
+        }
+
+        function playCardSystemAnimation(sysId) {
+            const currentSystems = JSON.parse(localStorage.getItem('systemes_animes')) || [];
+            const sys = currentSystems.find(s => s.id === sysId);
+            if (!sys || sys.keyframes.length === 0) return;
+
+            const btnPlay = document.getElementById(`btn-card-play-${sysId}`);
+            const btnPause = document.getElementById(`btn-card-pause-${sysId}`);
+            if (btnPlay) btnPlay.style.display = 'none';
+            if (btnPause) btnPause.style.display = 'inline-flex';
+
+            let state = cardAnimStates[sysId];
+            if (!state) {
+                state = { isPlaying: true, startTime: Date.now(), pausedAt: 0, speed: 1.0, frameId: null };
+                cardAnimStates[sysId] = state;
+            } else {
+                state.isPlaying = true;
+                state.startTime = Date.now() - (state.pausedAt / state.speed);
+            }
+
+            const speedEl = document.getElementById(`speed-card-${sysId}`);
+            state.speed = speedEl ? parseFloat(speedEl.value) : 1.0;
+
+            function animStep() {
+                if (!state.isPlaying) return;
+
+                const elapsedMs = (Date.now() - state.startTime) * state.speed;
+                const totalDuration = sys.duration || 1000;
+                const currentTime = elapsedMs % (totalDuration + 800);
+
+                if (currentTime <= totalDuration) {
+                    renderCardFrame(sys, currentTime);
+                    state.pausedAt = currentTime;
+                } else {
+                    renderCardFrame(sys, totalDuration);
+                    state.pausedAt = totalDuration;
+                }
+
+                state.frameId = requestAnimationFrame(animStep);
+            }
+
+            if (state.frameId) cancelAnimationFrame(state.frameId);
+            state.frameId = requestAnimationFrame(animStep);
+        }
+
+        function pauseCardSystemAnimation(sysId) {
+            const state = cardAnimStates[sysId];
+            if (state) {
+                state.isPlaying = false;
+                if (state.frameId) cancelAnimationFrame(state.frameId);
+            }
+
+            const btnPlay = document.getElementById(`btn-card-play-${sysId}`);
+            const btnPause = document.getElementById(`btn-card-pause-${sysId}`);
+            if (btnPlay) btnPlay.style.display = 'inline-flex';
+            if (btnPause) btnPause.style.display = 'none';
+        }
+
+        function restartCardSystemAnimation(sysId) {
+            pauseCardSystemAnimation(sysId);
+            const state = cardAnimStates[sysId];
+            if (state) {
+                state.pausedAt = 0;
+            }
+            const currentSystems = JSON.parse(localStorage.getItem('systemes_animes')) || [];
+            const sys = currentSystems.find(s => s.id === sysId);
+            if (sys) renderCardFrame(sys, 0);
+            playCardSystemAnimation(sysId);
+        }
+
+        function updateCardSpeed(sysId, speedVal) {
+            const state = cardAnimStates[sysId];
+            if (state) {
+                state.speed = parseFloat(speedVal);
+                if (state.isPlaying) {
+                    state.startTime = Date.now() - (state.pausedAt / state.speed);
+                }
+            }
+        }
+
+        async function deleteCoachSystem(sysId) {
+            if (await showCustomConfirm("Voulez-vous vraiment supprimer ce système animé de la bibliothèque ?", "Supprimer le système", "danger", "Supprimer", "Annuler")) {
+                pauseCardSystemAnimation(sysId);
+                delete cardAnimStates[sysId];
+
+                let currentSystems = JSON.parse(localStorage.getItem('systemes_animes')) || [];
+                currentSystems = currentSystems.filter(s => s.id !== sysId);
+                localStorage.setItem('systemes_animes', JSON.stringify(currentSystems));
+                renderCoachSystems();
+            }
+        }
+
         // --- Fonctions d'Exportation / Importation JSON (Sauvegarder & Charger) ---
         function exportAppData() {
             const appData = {
@@ -4538,7 +7197,10 @@
                 preCommandes: JSON.parse(localStorage.getItem('sectionSportivePreCommandes')) || savedPreCommandes,
                 fournisseurOrders: JSON.parse(localStorage.getItem('sectionSportiveFournisseurOrders')) || savedFournisseurOrders,
                 matches: JSON.parse(localStorage.getItem('sectionSportiveMatches')) || savedMatches,
-                trainings: JSON.parse(localStorage.getItem('sectionSportiveTrainings')) || savedTrainings
+                trainings: JSON.parse(localStorage.getItem('sectionSportiveTrainings')) || savedTrainings,
+                planifAnnuelle: JSON.parse(localStorage.getItem('planif_annuelle')) || null,
+                historiqueSeances: JSON.parse(localStorage.getItem('historique_seances')) || [],
+                systemesAnimes: JSON.parse(localStorage.getItem('systemes_animes')) || []
             };
 
             const jsonString = JSON.stringify(appData, null, 2);
@@ -4594,7 +7256,17 @@
                             localStorage.setItem('sectionSportiveTrainings', JSON.stringify(savedTrainings));
                         }
 
-                        // Rafraîchir toutes les tables de l'interface
+                        if (importedData.planifAnnuelle) {
+                            localStorage.setItem('planif_annuelle', JSON.stringify(importedData.planifAnnuelle));
+                        }
+                        if (Array.isArray(importedData.historiqueSeances)) {
+                            localStorage.setItem('historique_seances', JSON.stringify(importedData.historiqueSeances));
+                        }
+                        if (Array.isArray(importedData.systemesAnimes)) {
+                            localStorage.setItem('systemes_animes', JSON.stringify(importedData.systemesAnimes));
+                        }
+
+                        // Rafraîchir toutes les tables et modules de l'interface
                         refreshTables();
                         refreshMaterielTable();
                         refreshPreCommandesTable();
@@ -4602,6 +7274,15 @@
                         refreshMatchesTable();
                         if (typeof initTrainingTab === 'function') {
                             initTrainingTab();
+                        }
+                        if (typeof loadPlanification === 'function') {
+                            loadPlanification();
+                        }
+                        if (typeof renderCoachHistory === 'function') {
+                            renderCoachHistory();
+                        }
+                        if (typeof renderCoachSystems === 'function') {
+                            renderCoachSystems();
                         }
 
                         await showCustomAlert("Les données ont été importées avec succès !", "Succès", "success");
@@ -4615,8 +7296,8 @@
         }
 
         async function clearAllAppData() {
-            const confirmMsg1 = "ATTENTION ! Vous allez SUPPRIMER DÉFINITIVEMENT TOUTES LES DONNÉES enregistrées dans l'application (Joueurs, Matériel, Commandes, Matchs, Entraînements).\n\nCette action est IRRÉVERSIBLE.\n\nVoulez-vous vraiment continuer ?";
-            if (!await showCustomConfirm(confirmMsg1, "Suppression Totale", "danger", "Continuer", "Annuler")) return;
+            const confirmMsg = "ATTENTION : Vous êtes sur le point de supprimer TOUTES les données enregistrées (Joueurs, Matériel, Commandes, Matchs, Entraînements, Planification, Séances et Systèmes Animés). Cette action est IRRÉVERSIBLE.";
+            if (!await showCustomConfirm(confirmMsg, "Réinitialiser toutes les données", "danger", "Oui, continuer", "Annuler")) return;
 
             const confirmMsg2 = "Confirmation finale : Êtes-vous ABSOLUMENT SÛR de vouloir effacer toutes les données ?";
             if (!await showCustomConfirm(confirmMsg2, "Confirmation Finale", "danger", "Tout Effacer", "Annuler")) return;
@@ -4628,6 +7309,9 @@
             localStorage.removeItem('sectionSportiveFournisseurOrders');
             localStorage.removeItem('sectionSportiveMatches');
             localStorage.removeItem('sectionSportiveTrainings');
+            localStorage.removeItem('planif_annuelle');
+            localStorage.removeItem('historique_seances');
+            localStorage.removeItem('systemes_animes');
 
             // Réinitialiser les tableaux en mémoire
             savedPlayers = [];
@@ -4658,6 +7342,12 @@
             refreshMatchesTable();
             if (typeof initTrainingTab === 'function') {
                 initTrainingTab();
+            }
+            if (typeof loadPlanification === 'function') {
+                loadPlanification();
+            }
+            if (typeof renderCoachHistory === 'function') {
+                renderCoachHistory();
             }
             if (typeof updateFichesCategoryCounts === 'function') {
                 updateFichesCategoryCounts();
