@@ -98,13 +98,15 @@
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-right: 1px solid var(--glass-border);
-            padding: 30px 18px;
+            padding: 22px 16px;
             display: flex;
             flex-direction: column;
             transition: var(--transition);
             position: relative;
             color: var(--text-dark);
             z-index: 10;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         body.home-mode .sidebar {
@@ -115,19 +117,19 @@
 
         .sidebar.collapsed {
             width: 80px;
-            padding: 30px 10px;
+            padding: 22px 10px;
         }
 
         .sidebar-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 50px;
-            padding: 0 10px;
+            margin-bottom: 24px;
+            padding: 0 8px;
         }
 
         .sidebar-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 800;
             white-space: nowrap;
             overflow: hidden;
@@ -160,19 +162,19 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
         }
 
         .nav-links li a {
             display: flex;
             align-items: center;
-            padding: 12px 14px;
+            padding: 10px 12px;
             text-decoration: none;
             color: var(--text-muted);
             border-radius: var(--border-radius-sm);
             transition: var(--transition);
             font-weight: 600;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
         }
 
         body.home-mode .nav-links li a {
@@ -212,8 +214,8 @@
             margin-top: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            padding-top: 20px;
+            gap: 8px;
+            padding-top: 14px;
             border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -225,10 +227,10 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 12px;
-            padding: 12px 15px;
+            gap: 10px;
+            padding: 9px 12px;
             border-radius: var(--border-radius-sm);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -2079,6 +2081,120 @@
             align-items: center;
             justify-content: space-between;
         }
+
+        /* --- Styles Page Infos & Réunions --- */
+        .notes-list-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .note-card-item {
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: 20px 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+
+        .note-card-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+            border-color: rgba(94, 53, 177, 0.3);
+        }
+
+        .note-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .note-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .note-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(94, 53, 177, 0.08);
+            color: var(--primary-purple);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .note-card-excerpt {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+            white-space: pre-line;
+            max-height: 4.8em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+        }
+
+        .note-card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .note-empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+
+        .note-empty-state i {
+            font-size: 3rem;
+            color: rgba(94, 53, 177, 0.25);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .note-form-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .note-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .note-card-actions {
+                justify-content: stretch;
+            }
+
+            .note-card-actions .btn {
+                flex: 1;
+                text-align: center;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 
@@ -2091,6 +2207,8 @@
         <ul class="nav-links">
             <li><a href="#" onclick="navigate('accueil')" class="active" id="nav-accueil"><i class="fas fa-home"></i>
                     <span>Accueil</span></a></li>
+            <li><a href="#" onclick="navigate('infos-reunions')" id="nav-infos-reunions"><i class="fas fa-comments"></i>
+                    <span>Infos & Réunions</span></a></li>
             <li><a href="#" onclick="navigate('effectif')" id="nav-effectif"><i class="fas fa-users"></i>
                     <span>Effectif</span></a></li>
             <li><a href="#" onclick="navigate('fiches')" id="nav-fiches"><i class="fas fa-id-card"></i>
@@ -3254,6 +3372,115 @@
             </div>
         </section>
 
+        <section id="infos-reunions" class="page-section">
+            <div class="header-section">
+                <div>
+                    <h1>Infos & Réunions</h1>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">
+                        Rédigez vos notes, comptes-rendus de réunions et gardez un historique complet des informations
+                        de la section sportive.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formulaire de saisie d'une note / réunion -->
+            <div class="category-card" style="margin-bottom: 30px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 14px;">
+                    <h3 id="note-form-title"
+                        style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-pen-fancy" style="color: var(--primary-purple);"></i>
+                        <span>Nouvelle note / réunion</span>
+                    </h3>
+                    <span id="note-mode-badge"
+                        style="display: none; background: #E8F5E9; color: #2E7D32; font-weight: 700; font-size: 0.82rem; padding: 4px 12px; border-radius: 12px;">
+                        <i class="fas fa-edit"></i> Modification en cours
+                    </span>
+                </div>
+
+                <form id="form-note" onsubmit="event.preventDefault(); saveNote();">
+                    <input type="hidden" id="note-edit-id" value="">
+
+                    <div class="note-form-grid"
+                        style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 18px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="note-titre"
+                                style="font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 6px;">
+                                <i class="fas fa-heading" style="color: var(--primary-purple); font-size: 0.85rem;"></i>
+                                Titre *
+                            </label>
+                            <input type="text" id="note-titre" class="form-control"
+                                placeholder="Ex: Réunion début d'année, Bilan compétition, Stage..." required
+                                style="background: white; border: 1px solid rgba(0,0,0,0.15);">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="note-date"
+                                style="font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 6px;">
+                                <i class="far fa-calendar-alt"
+                                    style="color: var(--primary-purple); font-size: 0.85rem;"></i> Date *
+                            </label>
+                            <input type="date" id="note-date" class="form-control" required
+                                style="background: white; border: 1px solid rgba(0,0,0,0.15);">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note-contenu"
+                            style="font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-align-left" style="color: var(--primary-purple); font-size: 0.85rem;"></i>
+                            Contenu / Informations *
+                        </label>
+                        <textarea id="note-contenu" class="form-control" rows="8"
+                            placeholder="Saisissez ici les informations, l'ordre du jour, les décisions prises ou les remarques..."
+                            required
+                            style="resize: vertical; min-height: 180px; height: 180px; line-height: 1.6; font-size: 0.98rem; padding: 14px 16px; background: white; border: 1px solid rgba(0,0,0,0.15);"></textarea>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: flex-end; gap: 12px; align-items: center; margin-top: 15px;">
+                        <button type="button" class="btn btn-secondary" id="btn-cancel-note" onclick="cancelEditNote()"
+                            style="display: none;">
+                            <i class="fas fa-times"></i> Annuler
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="btn-save-note"
+                            style="min-width: 140px; padding: 12px 24px; font-weight: 600;">
+                            <i class="fas fa-check"></i> Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Liste des notes enregistrées en dessous -->
+            <div class="category-card">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <h3
+                            style="margin: 0; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-clipboard-list" style="color: var(--primary-purple);"></i>
+                            <span>Notes & réunions enregistrées</span>
+                        </h3>
+                        <span id="notes-count-badge"
+                            style="background: rgba(94, 53, 177, 0.1); color: var(--primary-purple); font-weight: 700; font-size: 0.85rem; padding: 3px 12px; border-radius: 20px;">
+                            0 note
+                        </span>
+                    </div>
+
+                    <div style="position: relative; min-width: 250px;">
+                        <i class="fas fa-search"
+                            style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.88rem;"></i>
+                        <input type="text" id="search-notes" class="form-control" placeholder="Rechercher une note..."
+                            oninput="filterNotesList()"
+                            style="height: 38px; padding-left: 34px; font-size: 0.88rem; border-radius: 20px; background: #F8F8FA;">
+                    </div>
+                </div>
+
+                <div id="notes-list-container" class="notes-list-grid">
+                    <!-- Généré dynamiquement en JS -->
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <div class="modal-overlay" id="modalPlayer">
@@ -3986,6 +4213,49 @@
         </div>
     </div>
 
+    <!-- MODALE DE CONSULTATION D'UNE NOTE / RÉUNION -->
+    <div class="modal-overlay" id="modalConsultNote" style="z-index: 9990;">
+        <div class="modal-content large"
+            style="max-width: 760px; padding: 32px 30px; border-radius: var(--border-radius-lg);">
+            <button class="close-modal" onclick="closeModal('modalConsultNote')"><i class="fas fa-times"></i></button>
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 16px; padding-right: 35px;">
+                <div>
+                    <h2 id="consult-note-title"
+                        style="margin: 0 0 8px 0; font-size: 1.45rem; color: var(--text-dark); line-height: 1.3;">Titre
+                        de la note</h2>
+                    <span id="consult-note-date" class="note-date-badge">
+                        <i class="far fa-calendar-alt"></i> <span>Date</span>
+                    </span>
+                </div>
+            </div>
+
+            <div id="consult-note-body"
+                style="white-space: pre-wrap; word-break: break-word; font-size: 1rem; line-height: 1.7; color: var(--text-dark); background: #FAF9F6; border: 1px solid rgba(0,0,0,0.06); padding: 22px; border-radius: 12px; max-height: 55vh; overflow-y: auto; font-family: inherit;">
+                <!-- Contenu de la note injecté en JS -->
+            </div>
+
+            <div class="modal-actions"
+                style="margin-top: 25px; padding-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <button type="button" class="btn" onclick="printConsultNote()"
+                        style="background: rgba(0,0,0,0.05); color: var(--text-dark);">
+                        <i class="fas fa-print"></i> Imprimer
+                    </button>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalConsultNote')">
+                        Fermer
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-consult-edit"
+                        onclick="editFromConsultModal()">
+                        <i class="fas fa-edit"></i> Modifier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL PERSONNALISÉE POUR ALERTS ET CONFIRMATIONS (POPUP STYLE DESIGN SYSTEM) -->
     <div class="modal-overlay" id="customPopupModal" style="z-index: 10000;">
         <div class="modal-content"
@@ -4040,6 +4310,9 @@
             }
             if (pageId === 'fiches') {
                 showCategorySelection();
+            }
+            if (pageId === 'infos-reunions') {
+                initInfosReunions();
             }
         }
 
@@ -4166,6 +4439,9 @@
             }
             if (typeof initCoachModule === 'function') {
                 initCoachModule();
+            }
+            if (typeof initInfosReunions === 'function') {
+                initInfosReunions();
             }
         });
 
@@ -7187,6 +7463,320 @@
             }
         }
 
+        // ==========================================
+        // MODULE INFOS & RÉUNIONS
+        // ==========================================
+        let savedInfosReunions = JSON.parse(localStorage.getItem('sectionSportiveInfosReunions')) || [];
+        let currentConsultNoteId = null;
+
+        function initInfosReunions() {
+            const dateInput = document.getElementById('note-date');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = new Date().toISOString().slice(0, 10);
+            }
+            renderNotesList();
+        }
+
+        function formatFrenchDate(dateStr) {
+            if (!dateStr) return '';
+            try {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                    return d.toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                }
+            } catch (e) {
+                // Fallback
+            }
+            return dateStr;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function renderNotesList(notesToRender = null) {
+            const container = document.getElementById('notes-list-container');
+            const countBadge = document.getElementById('notes-count-badge');
+            if (!container) return;
+
+            const list = notesToRender !== null ? notesToRender : savedInfosReunions;
+
+            if (countBadge) {
+                countBadge.textContent = `${list.length} ${list.length > 1 ? 'notes' : 'note'}`;
+            }
+
+            if (!list || list.length === 0) {
+                const searchInput = document.getElementById('search-notes');
+                const searchVal = searchInput ? searchInput.value.trim() : '';
+                container.innerHTML = `
+                    <div class="note-empty-state">
+                        <i class="fas fa-clipboard"></i>
+                        <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 5px; color: var(--text-dark);">
+                            ${searchVal ? 'Aucune note ne correspond à votre recherche.' : 'Aucune note ou réunion enregistrée pour le moment.'}
+                        </p>
+                        <p style="font-size: 0.9rem;">
+                            ${searchVal ? 'Essayez avec un autre mot-clé.' : 'Utilisez le formulaire ci-dessus pour rédiger et enregistrer votre première note.'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Trier les notes : les plus récentes d'abord (selon la date puis l'ID)
+            const sortedList = [...list].sort((a, b) => {
+                if (b.date !== a.date) {
+                    return b.date.localeCompare(a.date);
+                }
+                return (b.id || '').localeCompare(a.id || '');
+            });
+
+            let html = '';
+            sortedList.forEach(note => {
+                const cleanTitre = escapeHtml(note.titre || 'Sans titre');
+                const cleanContenu = escapeHtml(note.contenu || '');
+                const formattedDate = formatFrenchDate(note.date);
+
+                html += `
+                    <div class="note-card-item" id="card-${note.id}">
+                        <div class="note-card-header">
+                            <h4 class="note-card-title">${cleanTitre}</h4>
+                            <span class="note-date-badge">
+                                <i class="far fa-calendar-alt"></i> ${formattedDate}
+                            </span>
+                        </div>
+                        <p class="note-card-excerpt">${cleanContenu}</p>
+                        <div class="note-card-actions">
+                            <button type="button" class="btn btn-primary" onclick="consultNote('${note.id}')" style="padding: 7px 16px; font-size: 0.88rem;">
+                                <i class="fas fa-eye"></i> Consulter
+                            </button>
+                            <button type="button" class="btn" onclick="editNote('${note.id}')" style="padding: 7px 16px; font-size: 0.88rem; background: rgba(94, 53, 177, 0.1); color: var(--primary-purple); border: 1px solid rgba(94, 53, 177, 0.25);">
+                                <i class="fas fa-edit"></i> Modifier
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="deleteNote('${note.id}')" title="Supprimer la note" style="padding: 7px 14px; font-size: 0.88rem; background: #e53935; border-color: #e53935;">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        async function saveNote() {
+            const titreInput = document.getElementById('note-titre');
+            const dateInput = document.getElementById('note-date');
+            const contenuInput = document.getElementById('note-contenu');
+            const editIdInput = document.getElementById('note-edit-id');
+
+            const titre = titreInput.value.trim();
+            const date = dateInput.value;
+            const contenu = contenuInput.value.trim();
+            const editId = editIdInput.value;
+
+            if (!titre) {
+                await showCustomAlert("Veuillez saisir un titre pour la note ou la réunion.", "Champ manquant", "warning");
+                titreInput.focus();
+                return;
+            }
+
+            if (!date) {
+                await showCustomAlert("Veuillez choisir une date.", "Champ manquant", "warning");
+                dateInput.focus();
+                return;
+            }
+
+            if (!contenu) {
+                await showCustomAlert("Veuillez saisir le contenu ou compte-rendu de la note.", "Champ manquant", "warning");
+                contenuInput.focus();
+                return;
+            }
+
+            if (editId) {
+                // Modification d'une note existante
+                const index = savedInfosReunions.findIndex(n => n.id === editId);
+                if (index !== -1) {
+                    savedInfosReunions[index].titre = titre;
+                    savedInfosReunions[index].date = date;
+                    savedInfosReunions[index].contenu = contenu;
+                    savedInfosReunions[index].updatedAt = new Date().toISOString();
+                }
+                localStorage.setItem('sectionSportiveInfosReunions', JSON.stringify(savedInfosReunions));
+                cancelEditNote();
+                await showCustomAlert("La note a été mise à jour avec succès !", "Note modifiée", "success");
+            } else {
+                // Création d'une nouvelle note
+                const newNote = {
+                    id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+                    titre: titre,
+                    date: date,
+                    contenu: contenu,
+                    createdAt: new Date().toISOString()
+                };
+                savedInfosReunions.unshift(newNote);
+                localStorage.setItem('sectionSportiveInfosReunions', JSON.stringify(savedInfosReunions));
+
+                // Réinitialiser les champs de saisie
+                titreInput.value = '';
+                contenuInput.value = '';
+                dateInput.value = new Date().toISOString().slice(0, 10);
+                await showCustomAlert("La note a été enregistrée avec succès !", "Note enregistrée", "success");
+            }
+
+            filterNotesList();
+        }
+
+        function editNote(noteId) {
+            const note = savedInfosReunions.find(n => n.id === noteId);
+            if (!note) return;
+
+            document.getElementById('note-edit-id').value = note.id;
+            document.getElementById('note-titre').value = note.titre || '';
+            document.getElementById('note-date').value = note.date || '';
+            document.getElementById('note-contenu').value = note.contenu || '';
+
+            // Mettre à jour l'interface du formulaire
+            document.getElementById('note-form-title').innerHTML = `
+                <i class="fas fa-edit" style="color: #2E7D32;"></i>
+                <span>Modifier la note</span>
+            `;
+            document.getElementById('note-mode-badge').style.display = 'inline-flex';
+            document.getElementById('btn-cancel-note').style.display = 'inline-flex';
+            document.getElementById('btn-save-note').innerHTML = `<i class="fas fa-save"></i> Mettre à jour`;
+
+            // Faire défiler jusqu'au formulaire
+            const formCard = document.getElementById('form-note');
+            if (formCard) {
+                formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            document.getElementById('note-titre').focus();
+        }
+
+        function cancelEditNote() {
+            document.getElementById('note-edit-id').value = '';
+            document.getElementById('note-titre').value = '';
+            document.getElementById('note-contenu').value = '';
+            document.getElementById('note-date').value = new Date().toISOString().slice(0, 10);
+
+            document.getElementById('note-form-title').innerHTML = `
+                <i class="fas fa-pen-fancy" style="color: var(--primary-purple);"></i>
+                <span>Nouvelle note / réunion</span>
+            `;
+            document.getElementById('note-mode-badge').style.display = 'none';
+            document.getElementById('btn-cancel-note').style.display = 'none';
+            document.getElementById('btn-save-note').innerHTML = `<i class="fas fa-check"></i> Valider`;
+        }
+
+        async function deleteNote(noteId) {
+            const note = savedInfosReunions.find(n => n.id === noteId);
+            if (!note) return;
+
+            const confirm = await showCustomConfirm(
+                `Voulez-vous vraiment supprimer la note "${note.titre}" du ${formatFrenchDate(note.date)} ?`,
+                "Supprimer la note",
+                "danger",
+                "Oui, supprimer",
+                "Annuler"
+            );
+
+            if (confirm) {
+                savedInfosReunions = savedInfosReunions.filter(n => n.id !== noteId);
+                localStorage.setItem('sectionSportiveInfosReunions', JSON.stringify(savedInfosReunions));
+
+                // Si la note en cours d'édition est celle supprimée, on réinitialise le formulaire
+                if (document.getElementById('note-edit-id').value === noteId) {
+                    cancelEditNote();
+                }
+
+                filterNotesList();
+                await showCustomAlert("La note a été supprimée avec succès.", "Note supprimée", "info");
+            }
+        }
+
+        function consultNote(noteId) {
+            const note = savedInfosReunions.find(n => n.id === noteId);
+            if (!note) return;
+
+            currentConsultNoteId = note.id;
+            document.getElementById('consult-note-title').textContent = note.titre || 'Sans titre';
+            document.getElementById('consult-note-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${formatFrenchDate(note.date)}`;
+            document.getElementById('consult-note-body').textContent = note.contenu || '';
+
+            openModal('modalConsultNote');
+        }
+
+        function editFromConsultModal() {
+            if (currentConsultNoteId) {
+                const id = currentConsultNoteId;
+                closeModal('modalConsultNote');
+                editNote(id);
+            }
+        }
+
+        function printConsultNote() {
+            const titre = document.getElementById('consult-note-title').textContent;
+            const date = document.getElementById('consult-note-date').textContent;
+            const contenu = document.getElementById('consult-note-body').textContent;
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>${escapeHtml(titre)}</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; color: #222; line-height: 1.6; }
+                        h1 { font-size: 24px; margin-bottom: 5px; color: #111; }
+                        .date { font-size: 14px; color: #666; margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 12px; }
+                        .content { white-space: pre-wrap; font-size: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${escapeHtml(titre)}</h1>
+                    <div class="date">Date : ${escapeHtml(date)} | Section Sportive Basket</div>
+                    <div class="content">${escapeHtml(contenu)}</div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 300);
+        }
+
+        function filterNotesList() {
+            const searchInput = document.getElementById('search-notes');
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+            if (!query) {
+                renderNotesList();
+                return;
+            }
+
+            const filtered = savedInfosReunions.filter(n => {
+                const t = (n.titre || '').toLowerCase();
+                const c = (n.contenu || '').toLowerCase();
+                const d = (n.date || '').toLowerCase();
+                return t.includes(query) || c.includes(query) || d.includes(query);
+            });
+
+            renderNotesList(filtered);
+        }
+
         // --- Fonctions d'Exportation / Importation JSON (Sauvegarder & Charger) ---
         function exportAppData() {
             const appData = {
@@ -7200,7 +7790,8 @@
                 trainings: JSON.parse(localStorage.getItem('sectionSportiveTrainings')) || savedTrainings,
                 planifAnnuelle: JSON.parse(localStorage.getItem('planif_annuelle')) || null,
                 historiqueSeances: JSON.parse(localStorage.getItem('historique_seances')) || [],
-                systemesAnimes: JSON.parse(localStorage.getItem('systemes_animes')) || []
+                systemesAnimes: JSON.parse(localStorage.getItem('systemes_animes')) || [],
+                infosReunions: JSON.parse(localStorage.getItem('sectionSportiveInfosReunions')) || savedInfosReunions
             };
 
             const jsonString = JSON.stringify(appData, null, 2);
@@ -7265,6 +7856,10 @@
                         if (Array.isArray(importedData.systemesAnimes)) {
                             localStorage.setItem('systemes_animes', JSON.stringify(importedData.systemesAnimes));
                         }
+                        if (Array.isArray(importedData.infosReunions)) {
+                            savedInfosReunions = importedData.infosReunions;
+                            localStorage.setItem('sectionSportiveInfosReunions', JSON.stringify(savedInfosReunions));
+                        }
 
                         // Rafraîchir toutes les tables et modules de l'interface
                         refreshTables();
@@ -7284,6 +7879,9 @@
                         if (typeof renderCoachSystems === 'function') {
                             renderCoachSystems();
                         }
+                        if (typeof initInfosReunions === 'function') {
+                            initInfosReunions();
+                        }
 
                         await showCustomAlert("Les données ont été importées avec succès !", "Succès", "success");
                     }
@@ -7296,7 +7894,7 @@
         }
 
         async function clearAllAppData() {
-            const confirmMsg = "ATTENTION : Vous êtes sur le point de supprimer TOUTES les données enregistrées (Joueurs, Matériel, Commandes, Matchs, Entraînements, Planification, Séances et Systèmes Animés). Cette action est IRRÉVERSIBLE.";
+            const confirmMsg = "ATTENTION : Vous êtes sur le point de supprimer TOUTES les données enregistrées (Joueurs, Matériel, Commandes, Matchs, Entraînements, Planification, Séances, Systèmes Animés et Notes & Réunions). Cette action est IRRÉVERSIBLE.";
             if (!await showCustomConfirm(confirmMsg, "Réinitialiser toutes les données", "danger", "Oui, continuer", "Annuler")) return;
 
             const confirmMsg2 = "Confirmation finale : Êtes-vous ABSOLUMENT SÛR de vouloir effacer toutes les données ?";
@@ -7312,6 +7910,7 @@
             localStorage.removeItem('planif_annuelle');
             localStorage.removeItem('historique_seances');
             localStorage.removeItem('systemes_animes');
+            localStorage.removeItem('sectionSportiveInfosReunions');
 
             // Réinitialiser les tableaux en mémoire
             savedPlayers = [];
@@ -7319,6 +7918,7 @@
             savedFournisseurOrders = [];
             savedMatches = [];
             savedTrainings = [];
+            savedInfosReunions = [];
 
             // Réinitialiser les compteurs matériel
             const elBon = document.getElementById('mat-bon');
@@ -7351,6 +7951,9 @@
             }
             if (typeof updateFichesCategoryCounts === 'function') {
                 updateFichesCategoryCounts();
+            }
+            if (typeof initInfosReunions === 'function') {
+                initInfosReunions();
             }
 
             alert("Toutes les données de l'application ont été réinitialisées avec succès !");
